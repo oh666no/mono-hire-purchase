@@ -1,0 +1,138 @@
+/* General styles for the settings page */
+.wrap {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 3em;
+}
+
+/* Styling for the title */
+h1 {
+    font-size: 26px;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+/* Make the input fields wider and aligned properly */
+input[type="text"],
+input[type="checkbox"],
+textarea,
+select {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Style the description text under the input fields */
+.description {
+    font-size: 14px;
+    color: #555;
+    margin-top: -10px;
+    margin-bottom: 15px;
+}
+
+/* Add spacing between settings fields */
+.form-table th {
+    padding: 10px 0;
+    font-size: 16px;
+    padding-right: 20px;
+    vertical-align: middle;
+}
+
+.form-table td {
+    padding: 10px 0;
+    font-size: 16px;
+    vertical-align: middle;
+}
+
+/* Style for the buttons */
+button,
+input[type="submit"],
+.wp-core-ui .button-primary {
+    background-color: #007cba;
+    border-color: #007cba;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-transform: uppercase;
+    box-shadow: none;
+}
+
+button:hover,
+input[type="submit"]:hover,
+.wp-core-ui .button-primary:hover {
+    background-color: #006ba1;
+}
+
+/* Add hover effect for buttons */
+button:active,
+input[type="submit"]:active,
+.wp-core-ui .button-primary:active {
+    background-color: #005f8b;
+    border-color: #005f8b;
+}
+
+/* Make checkbox fields align properly */
+input[type="checkbox"] {
+    width: auto;
+}
+
+/* Make error messages more prominent */
+.notice-error {
+    background-color: #f8d7da;
+    color: #842029;
+    border-left: 4px solid #f5c2c7;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+/* Style success notices to match error notices */
+.notice-success {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+    padding: 12px;
+    font-size: 14px;
+    color: #155724;
+}
+.wrap th {
+    width: 150px;
+    /* Adjust the width as needed */
+    white-space: nowrap;
+    /* Prevent line breaks */
+}
+
+input[type="text"],
+input[type="url"] {
+    width: 100%;
+    /* Make text inputs full width */
+    max-width: 600px;
+    /* Limit max width for better readability */
+}
+
+textarea {
+    width: 100%;
+    max-width: 600px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    margin-top: 20px!important;
+}
+.restare-mono-pay-image-preview img{
+    max-height: 50px;
+    width: auto;
+}
+#restare_mono_pay_part_available_parts{
+    margin-bottom: 0;
+}
+.description code{
+    cursor: pointer;
+}

@@ -1,0 +1,125 @@
+#mono-pay-order-result {
+    max-width: 100%;
+    overflow-x: scroll;
+    display: block;
+    background-color: #000;
+    color: #34BD26;
+    font-family: monospace;
+    border-left: 20px #333 solid;
+    padding: 0 2ch;
+    position: relative;
+}
+
+#mono-pay-order-result:empty {
+    display: none;
+}
+
+.mono-part-pay-data {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 30px;
+    margin-bottom: 30px;
+}
+@media screen and (min-width: 1921px){
+    .mono-part-pay-data{
+        max-width: 77%;
+    }
+}
+p.mono-error {
+    color: tomato;
+}
+
+#mono-pay-order-button,
+#check-mono-order-status-button,
+#reject-mono-order-button,
+#confirm-shipment-button {
+    margin-right: 2ch;
+}
+.mono-pay-buttons{
+    display: block;
+    align-items: center;
+}
+.hide {
+    display: none !important;
+}
+.order_status_updated .dashicons{
+    position: absolute;
+    left: 0;
+    color: #ff9800;
+    font-size: 3em;
+    width: auto;
+    height: auto;
+    animation: blink 2s infinite;
+}
+.order_status_updated{
+    padding: 20px 0 10px 45px;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+#mono-pay-order-result.loading:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-image: url("data:image/svg+xml,%3Csvg width='48' height='48' stroke='%23fff' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Ccircle cx='12' cy='12' r='9.5' fill='none' stroke-width='3' stroke-linecap='round'%3E%3Canimate attributeName='stroke-dasharray' dur='1.5s' calcMode='spline' values='0 150;42 150;42 150;42 150' keyTimes='0;0.475;0.95;1' keySplines='0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1' repeatCount='indefinite'/%3E%3Canimate attributeName='stroke-dashoffset' dur='1.5s' calcMode='spline' values='0;-16;-59;-59' keyTimes='0;0.475;0.95;1' keySplines='0.42,0,0.58,1;0.42,0,0.58,1;0.42,0,0.58,1' repeatCount='indefinite'/%3E%3C/circle%3E%3CanimateTransform attributeName='transform' type='rotate' dur='2s' values='0 12 12;360 12 12' repeatCount='indefinite'/%3E%3C/g%3E%3C/svg%3E");
+    background-position: 50% calc(50% + 10px);
+    background-repeat: no-repeat;
+    background-size: 70px 70px;
+    color: #144e0f;
+}
+
+.mono-part-pay-data h3 {
+    color: #aaa;
+    display: flex;
+    gap: 1ch;
+    /* justify-content: space-between; */
+    align-items: center;
+}
+
+.mono-part-pay-data p {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.mono-part-pay-data p span {
+    font-weight: normal;
+}
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* todo finish styilang different states of application*/
+/* .mono-part-pay-data h3:after {
+    font-family: dashicons;
+    font-size: 1.5em;
+    content: "\f321";
+    color: #aaa;
+}
+
+.mono-part-pay-data h3.success:after {
+    content: "\f147";
+    color: #34BD26;
+}
+
+.mono-part-pay-data h3.fail:after {
+    content: "\f335";
+    color: red;
+} */
