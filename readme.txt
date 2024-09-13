@@ -1,4 +1,4 @@
-=== Mono Pay-part ===
+=== Mono Hire Purchase ===
 Contributors: pkotula
 Donate link: https://pkotula.com/
 Tags: woocommerce, payment gateway, mono bank, installments, payments
@@ -13,7 +13,7 @@ Integrate Mono Bank's installment payment system into WooCommerce, allowing cust
 
 == Description ==
 
-The **Mono Pay-part** plugin adds a new payment gateway to your WooCommerce store, enabling customers to pay for their orders in installments using Mono Bank's installment system. Enhance your store by offering flexible payment options and manage orders effectively with real-time payment status updates.
+The **Mono Hire Purchase** plugin adds a new payment gateway to your WooCommerce store, enabling customers to pay for their orders in installments using Mono Bank's installment system. Enhance your store by offering flexible payment options and manage orders effectively with real-time payment status updates.
 
 **Key Features:**
 
@@ -40,13 +40,13 @@ The **Mono Pay-part** plugin adds a new payment gateway to your WooCommerce stor
    - The plugin requires WooCommerce to function properly.
 
 4. **Configure the Plugin:**
-   - Navigate to **WooCommerce > Mono Pay-part** in the WordPress admin dashboard.
+   - Navigate to **WooCommerce > Mono Hire Purchase** in the WordPress admin dashboard.
    - Enter your Mono Bank API credentials, configure available installments, and upload custom images if desired.
-   - Enable the payment gateway by checking the "Enable Part Pay Method" option.
+   - Enable the payment gateway by checking the "Enable Hire Purchase Method" option.
 
 5. **Set Up Payment Gateway:**
    - Go to **WooCommerce > Settings > Payments**.
-   - Ensure that "Mono Part Pay Method" is enabled and configured as desired.
+   - Ensure that "Mono Hire Purchase Method" is enabled and configured as desired.
 
 6. **Test the Integration:**
    - Place a test order to ensure the payment gateway is working correctly.
@@ -64,7 +64,7 @@ The plugin is tested up to WooCommerce 8.0 and WordPress 6.3. It's also compatib
 
 = How do I configure the available installment options? =
 
-In the plugin settings under **WooCommerce > Mono Pay-part**, you can specify the available installments by entering comma-separated numbers (e.g., `3, 4, 6, 9`).
+In the plugin settings under **WooCommerce > Mono Hire Purchase**, you can specify the available installments by entering comma-separated numbers (e.g., `3, 4, 6, 9`).
 
 = Can I use the plugin in test mode? =
 
@@ -81,14 +81,14 @@ Yes, the plugin is fully internationalized and ready for translation. You can tr
 == Screenshots ==
 
 1. **Plugin Settings Page:** Configure API credentials, available installments, and upload custom images.
-2. **Checkout Page Payment Method:** Customers can select the Mono Part Pay Method and choose the number of installments.
+2. **Checkout Page Payment Method:** Customers can select the Mono Hire Purchase Method and choose the number of installments.
 3. **Order Edit Screen:** Administrators can perform custom actions related to the payment method.
 4. **Promotional Banner Displayed Using Shortcode:** Enhance your site with a customizable promotional banner.
 
 == Changelog ==
 
 = 1.0 =
-* Initial release of the Mono Pay-part plugin.
+* Initial release of the Mono Hire Purchase plugin.
 * Added Mono Bank installment payment gateway integration.
 * Included admin settings for configuration.
 * Implemented secure API communication with Mono Bank.
