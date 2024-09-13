@@ -63,6 +63,10 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 		}
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			// Declare compatibility for 'cart_checkout_blocks'
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
+		}
 	} );
 
 	// Include the payment method class
@@ -89,4 +93,23 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 		</div>
 		<?php
 	}
+}
+
+
+add_action( 'woocommerce_blocks_loaded', 'mono_pay_register_block_support' );
+function mono_pay_register_block_support() {
+	// Check if the required class exists
+	if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
+		return;
+	}
+	// Include the custom Blocks Checkout class
+	require_once MONO_PAY_PART_PLUGIN_DIR . 'includes/class.mono-block.php';
+	// Hook the registration function to the 'woocommerce_blocks_payment_method_type_registration' action
+	add_action(
+		'woocommerce_blocks_payment_method_type_registration',
+		function (Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry) {
+			// Register an instance of My_Custom_Gateway_Blocks
+			$payment_method_registry->register( new WC_Gateway_Mono_Part_Pay_Blocks );
+		}
+	);
 }

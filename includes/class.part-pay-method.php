@@ -11,7 +11,7 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 class WC_Gateway_Mono_Part_Pay extends WC_Payment_Gateway {
 
 	public function __construct() {
-		error_log( 'Mono Pay Part Gateway initialized.' );
+
 		$this->id = 'mono_part_pay';
 		$payment_logo_url = get_option( 'mono_pay_part_payment_logo' );
 		$this->icon = ! empty( $payment_logo_url ) ? esc_url( $payment_logo_url ) : MONO_PAY_PART_PLUGIN_URL . '/assets/images/default-logo.svg';
@@ -61,6 +61,7 @@ class WC_Gateway_Mono_Part_Pay extends WC_Payment_Gateway {
 
 	// Output custom fields for the payment method on the checkout page
 	public function payment_fields() {
+
 		// Get the available parts setting
 		$available_parts_setting = get_option( 'mono_pay_part_available_parts', '3, 4, 6, 9' );
 		$available_parts = explode( ',', $available_parts_setting );
@@ -89,6 +90,19 @@ class WC_Gateway_Mono_Part_Pay extends WC_Payment_Gateway {
 
 	public function process_payment( $order_id ) {
 		$order = wc_get_order( $order_id );
+
+		$desired_parts = isset( $_POST['desired_parts'] ) ? sanitize_text_field( $_POST['desired_parts'] ) : '';
+
+		if ( ! empty( $desired_parts ) ) {
+
+			if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+
+				$order->update_meta_data( '_user_desired_payments_number', $desired_parts );
+				$order->save();
+			} else {
+				update_post_meta( $order_id, '_user_desired_payments_number', $desired_parts );
+			}
+		}
 
 		// Mark as on-hold (we're awaiting the payment)
 		$order->update_status( 'pending', __( 'Awaiting Mono Part Pay payment acceptance', 'mono-pay-part' ) );
