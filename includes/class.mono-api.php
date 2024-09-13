@@ -5,7 +5,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
 class Mono_Part_Pay_API {
-
+	private $log_file_path;
 	public function __construct() {
 		// Define the log file path
 		$this->log_file_path = MONO_PAY_PART_PLUGIN_DIR . 'logs/api-calls.log';

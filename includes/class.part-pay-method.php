@@ -11,6 +11,7 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
 class WC_Gateway_Mono_Part_Pay extends WC_Payment_Gateway {
 
 	public function __construct() {
+		error_log( 'Mono Pay Part Gateway initialized.' );
 		$this->id = 'mono_part_pay';
 		$payment_logo_url = get_option( 'mono_pay_part_payment_logo' );
 		$this->icon = ! empty( $payment_logo_url ) ? esc_url( $payment_logo_url ) : MONO_PAY_PART_PLUGIN_URL . '/assets/images/default-logo.svg';

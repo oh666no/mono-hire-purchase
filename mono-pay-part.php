@@ -69,7 +69,7 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	function mono_pay_part_gateway_init() {
 		require_once MONO_PAY_PART_PLUGIN_DIR . 'includes/class.part-pay-method.php';
 	}
-	add_action( 'plugins_loaded', 'mono_pay_part_gateway_init' );
+	add_action( 'plugins_loaded', 'mono_pay_part_gateway_init', 11 );
 
 	// Register the gateway
 	function add_mono_pay_part_gateway( $methods ) {
