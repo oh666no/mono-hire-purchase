@@ -1,0 +1,301 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Restare Mono Pay-part 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-03 08:42+0000\n"
+"Last-Translator: \n"
+"Language-Team: Ukrainian\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: restare-mono-pay-part\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"PO-Revision-Date: 2024-09-13 21:07+0000\n"
+"X-Loco-Version: 2.6.11; wp-6.6.1"
+
+#: includes/class.part-pay-method.php:20
+msgid "Allows customers to pay using Mono Part Pay Method."
+msgstr ""
+"Дозволити користувачам обрати \"Покупку частинами\" та обрати бажану "
+"кількість платежів"
+
+#: includes/class.admin-wc-order.php:111
+msgid "Application status"
+msgstr "Статус заявки"
+
+#: includes/class.admin-wc-order.php:99
+msgid "Application sumbission"
+msgstr "Подача заявки"
+
+#: includes/class.settings.php:160
+msgid "Available Parts"
+msgstr "Доступна кількість платежів"
+
+#: includes/class.part-pay-method.php:108
+msgid "Awaiting Mono Part Pay payment acceptance"
+msgstr "Очікується підтвердження \"Покупки частинами\" від банку"
+
+#: includes/class.admin-wc-order.php:134
+msgid "Check Mono Order Status"
+msgstr "Перевірити статус заявки"
+
+#: includes/class.settings.php:210
+msgid "Choose Image"
+msgstr "Виберіть зображення"
+
+#: includes/class.admin-wc-order.php:152
+msgid "Confirm Shipment"
+msgstr "Підтвердити видачу товару клієнтові"
+
+#: includes/class.part-pay-method.php:54
+msgid "Description"
+msgstr "Опис"
+
+#: includes/class.part-pay-method.php:75
+msgid "Desired payments number"
+msgstr "Бажана кількість платежів"
+
+#: includes/class.part-pay-method.php:43
+msgid "Enable Mono Part Pay Method"
+msgstr "Увімкнути \"Покупку частинами\""
+
+#: includes/class.settings.php:52
+msgid "Enable Part Pay Method"
+msgstr "Активувати платіжний метод"
+
+#: includes/class.settings.php:65
+msgid "Enable Test Mode"
+msgstr "Активувати тестовий режим"
+
+#: includes/class.part-pay-method.php:41
+msgid "Enable/Disable"
+msgstr "вкл/викл"
+
+#: includes/class.settings.php:365
+msgid "Enter comma-separated numbers between 3 and 25."
+msgstr "Введіть перелік кількості платежів через кому від 3 до 25"
+
+#: includes/class.settings.php:273
+msgid ""
+"For more information about the Mono Pay-part API, please refer to the "
+"official documentation."
+msgstr "Для більш детальної інформації – ознайомтесь із офіційною доументацією"
+
+#. URI of the plugin
+msgid "https://pkotula.com/"
+msgstr "https://pkotula.com/"
+
+#: includes/class.admin-wc-order.php:121
+msgid "Mono Order Shipment Status:"
+msgstr "Статус видачі клієнту:"
+
+#: includes/class.admin-wc-order.php:112
+msgid "Mono Order State:"
+msgstr "Відповідь банку:"
+
+#: includes/class.admin-wc-order.php:115
+msgid "Mono Order Sub-state:"
+msgstr "Причина:"
+
+#: includes/class.admin-wc-order.php:36 includes/class.admin-wc-order.php:54
+msgid "Mono Part Pay"
+msgstr "Покупка частинами. Моно"
+
+#: includes/class.settings.php:187
+msgid "Mono Part Pay Banner"
+msgstr "Банер для \"Покупки частинами\""
+
+#: includes/class.mono-api.php:643
+msgid "Mono Part Pay finished. Shipment confirmed by shop admin"
+msgstr "Покупка Частинами завершена. Видача клієнту підтверджена"
+
+#: includes/class.part-pay-method.php:19 includes/class.part-pay-method.php:50
+msgid "Mono Part Pay Method"
+msgstr "Покупка частинами. Моно"
+
+#: includes/class.mono-api.php:541
+msgid "Mono Part Pay method cancelled by shop admin"
+msgstr "Покупка частинами скасована менеджером магазину"
+
+#: includes/class.admin-wc-order.php:69
+msgid "Mono Part Pay Order"
+msgstr "Заявка на \"Покупку частинами\""
+
+#: includes/class.mono-api.php:177
+msgid "Mono Part Pay payment Approved by Bank"
+msgstr "Покупка частинами зітверджена банком"
+
+#: includes/class.mono-api.php:179
+msgid "Mono Part Pay payment Failed. Reason: "
+msgstr "Покупка частинами не вдалась. Причина: "
+
+#: includes/class.admin-wc-order.php:106
+msgid "Mono Pay Order ID:"
+msgstr "ID заявки:"
+
+#: includes/class.admin-wc-order.php:103
+msgid "Mono Pay Status:"
+msgstr "Статус заявки:"
+
+#: includes/class.settings.php:20
+msgid "Mono Pay-part"
+msgstr ""
+
+#. Name of the plugin
+msgid "Mono Pay-Part Gateway"
+msgstr ""
+
+#: includes/class.settings.php:19 includes/class.settings.php:261
+msgid "Mono Pay-part Settings"
+msgstr ""
+
+#: includes/class.part-pay-method.php:82
+#, php-format
+msgctxt "Number of payments"
+msgid "%s payment"
+msgid_plural "%s payments"
+msgstr[0] "платіж"
+msgstr[1] "платежі"
+msgstr[2] "платежів"
+
+#: includes/class.settings.php:245
+msgid "Only numbers between 3 and 25 are allowed. These values were rejected: "
+msgstr "Допускаються лише числа від 3 до 25. Наступні значення було відхилено:"
+
+#: includes/class.admin-wc-order.php:154
+msgid ""
+"Order status has changed. Please reload the page to see the most recent data"
+msgstr ""
+"Статус замовлення змінився. Перезавантажте сторінку щоб побачити "
+"найактувальніші дані"
+
+#: includes/class.part-pay-method.php:57
+msgid "Pay using Mono Part Pay Method."
+msgstr "Оплата \"Покупкою частинами\""
+
+#: includes/class.settings.php:173
+msgid "Payment Method Logo"
+msgstr "Лого платіжного методу"
+
+#. Author of the plugin
+msgid "pkotula"
+msgstr "pkotula"
+
+#: includes/class.settings.php:147
+msgid "Production API URL"
+msgstr "Бойовий API URL"
+
+#: includes/class.settings.php:133
+msgid "Production Sign Key"
+msgstr "Бойовий Sign Key"
+
+#: includes/class.settings.php:119
+msgid "Production Store ID"
+msgstr "Бойовий Store ID"
+
+#: includes/class.admin-wc-order.php:142
+msgid "Reject Mono Order"
+msgstr "Скасувати заявку на \"Покупку частинами\""
+
+#: includes/class.admin-wc-order.php:154
+msgid "Reload"
+msgstr "Перезавантажити"
+
+#: includes/class.settings.php:212
+msgid "Remove Image"
+msgstr "Видалити зображення"
+
+#: mono-pay-part.php:92
+msgid "Restare Mono Pay-part requires WooCommerce to be active."
+msgstr "reStare + Моно \"Покупка частинами\" потребує активованого WooCommerce"
+
+#: includes/class.settings.php:325
+msgid "Select Image"
+msgstr "Оберіть зображення"
+
+#: includes/class.admin-wc-order.php:100
+msgid "Selected number of payments:"
+msgstr "Обрана кількість платежів:"
+
+#: includes/class.admin-wc-order.php:131
+msgid "Send Order to Mono Pay"
+msgstr "Надіслати заявку"
+
+#: includes/class.settings.php:44
+msgid "Settings"
+msgstr "Налаштування"
+
+#: includes/class.admin-wc-order.php:120
+msgid "Shipment status"
+msgstr "Статус видачі клієнту"
+
+#: mono-pay-part.php:46
+msgid "Shortcode copied to clipboard!"
+msgstr "Шорткод скопійовано в буфер обміну!"
+
+#: includes/class.settings.php:106
+msgid "Test API URL"
+msgstr "Тестовий API URL"
+
+#: includes/class.settings.php:92
+msgid "Test Sign Key"
+msgstr "Тестовий Sign Key"
+
+#: includes/class.settings.php:78
+msgid "Test Store ID"
+msgstr "Тестовий Store ID"
+
+#. Description of the plugin
+#| msgid ""
+#| "The Restare Mono Pay-Part plugin adds a WooCommerce payment gateway that "
+#| "integrates Mono Bank’s installment system, enabling customers to split "
+#| "payments while providing real-time payment status updates and order "
+#| "management."
+msgid ""
+"The Mono Pay-Part plugin adds a WooCommerce payment gateway that integrates "
+"Mono Bank’s installment system, enabling customers to split payments while "
+"providing real-time payment status updates and order management."
+msgstr ""
+"Плагін Mono Pay-Part додає платіжний шлюз WooCommerce для інтеграції з "
+"\"Покупкою частинами\" від MonoBank, що дозволяє клієнтам розбивати платежі, "
+"одночасно забезпечуючи оновлення статусу платежу в реальному часі та "
+"управління замовленнями."
+
+#: includes/class.part-pay-method.php:56
+msgid "This controls the description which the user sees during checkout."
+msgstr "Це текст, який користувач бачить під час оформлення замовлення.​"
+
+#: includes/class.part-pay-method.php:49
+msgid "This controls the title which the user sees during checkout."
+msgstr "Це назва, яку користувач бачить під час оформлення замовлення."
+
+#: includes/class.settings.php:180
+msgid "This logo is displayed on a checkout page."
+msgstr "Логотип який відображається при оформленні замовлення"
+
+#: includes/class.part-pay-method.php:47
+msgid "Title"
+msgstr "Назва"
+
+#: includes/class.mono-api.php:181
+msgid "Unknown payment status via Mono Part Pay."
+msgstr "Статус заяки на \"Покупку частинами\" невідомий"
+
+#: includes/class.settings.php:327
+msgid "Use this image"
+msgstr "Використати дане зображення"
+
+#: includes/class.settings.php:276
+msgid "View Documentation"
+msgstr "Перейти до документації"
+
+#: includes/class.settings.php:194
+msgid ""
+"You can place this banner anywhere using <code>[mono_pay_part_banner]</code> "
+"shortcode"
+msgstr ""
+"Ви можете вивести даний банер будь-де за допомогою <code>"
+"[mono_pay_part_banner]</code> шорткоду"
