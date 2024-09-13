@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 const { registerPaymentMethod } = window.wc.wcBlocksRegistry;
 const { getSetting } = window.wc.wcSettings;
 
-const settings = getSetting('mono_part_pay_data', {});
+const settings = getSetting('mono_hire_purchase_data', {});
 const label = decodeEntities(settings.title);
 
 const Content = ({ eventRegistration, emitResponse }) => {
@@ -72,7 +72,7 @@ const Label = () => (
 const canMakePayment = () => true;
 
 registerPaymentMethod({
-    name: 'mono_part_pay',
+    name: 'mono_hire_purchase',
     label: <Label />,
     content: <Content />,
     edit: <Content />,

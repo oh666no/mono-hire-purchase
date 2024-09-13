@@ -23,3 +23,7 @@ yarn.lock
 
 # Ignore MacOS specific files
 .DS_Store
+
+# Ignore backup files
+*.po~
+*.pot~

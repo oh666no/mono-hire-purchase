@@ -4,11 +4,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
-class Mono_Part_Pay_API {
+class Mono_Hire_Purchase_API {
 	private $log_file_path;
 	public function __construct() {
 		// Define the log file path
-		$this->log_file_path = MONO_PAY_PART_PLUGIN_DIR . 'logs/api-calls.log';
+		$this->log_file_path = MONO_HIRE_PURCHASE_PLUGIN_DIR . 'logs/api-calls.log';
 
 		// Ensure the logs directory exists
 		if ( ! file_exists( dirname( $this->log_file_path ) ) ) {
@@ -71,7 +71,7 @@ class Mono_Part_Pay_API {
 	// Custom logging function
 	private function log_message( $message ) {
 		// Determine the path relative to the plugin root
-		$file = str_replace( MONO_PAY_PART_PLUGIN_DIR, '', debug_backtrace()[0]['file'] );
+		$file = str_replace( MONO_HIRE_PURCHASE_PLUGIN_DIR, '', debug_backtrace()[0]['file'] );
 		$function = debug_backtrace()[1]['function'];
 
 		$context = $file . ' - ' . $function;
@@ -136,8 +136,8 @@ class Mono_Part_Pay_API {
 		}
 
 		// Fetch secret key and signature
-		$is_test_mode = get_option( 'mono_pay_part_test_mode', '0' ) === '1';
-		$secret_key = $is_test_mode ? get_option( 'mono_pay_part_test_sign_key' ) : get_option( 'mono_pay_part_sign_key' );
+		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
+		$secret_key = $is_test_mode ? get_option( 'mono_hire_purchase_test_sign_key' ) : get_option( 'mono_hire_purchase_sign_key' );
 		$received_signature = $_SERVER['HTTP_SIGNATURE'];
 		$request_body = file_get_contents( 'php://input' );
 		$expected_signature = base64_encode( hash_hmac( 'sha256', $request_body, $secret_key, true ) );
@@ -159,7 +159,7 @@ class Mono_Part_Pay_API {
 		}
 
 		// Query the database for the order
-		$meta_key = '_mono_pay_part_order_id';
+		$meta_key = '_mono_hire_purchase_order_id';
 		$meta_value = $request_data['order_id'];
 		$query = $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s LIMIT 1", $meta_key, $meta_value );
 		$order_id = $wpdb->get_var( $query );
@@ -174,11 +174,11 @@ class Mono_Part_Pay_API {
 				] );
 
 				if ( $request_data['state'] === 'SUCCESS' ) {
-					$order->update_status( 'processing', __( 'Mono Part Pay payment Approved by Bank', 'mono-pay-part' ) );
+					$order->update_status( 'processing', __( 'Mono Part Pay payment Approved by Bank', 'mono-hire-purchase' ) );
 				} elseif ( $request_data['state'] === 'FAIL' ) {
-					$order->update_status( 'failed', __('Mono Part Pay payment Failed. Reason: ', 'mono-pay-part') . $request_data['order_sub_state'] );
+					$order->update_status( 'failed', __('Mono Part Pay payment Failed. Reason: ', 'mono-hire-purchase') . $request_data['order_sub_state'] );
 				} else {
-					$order->update_status( 'on-hold', __('Unknown payment status via Mono Part Pay.', 'mono-pay-part') );
+					$order->update_status( 'on-hold', __('Unknown payment status via Mono Part Pay.', 'mono-hire-purchase') );
 				}
 				$order->save();
 			}
@@ -209,7 +209,7 @@ class Mono_Part_Pay_API {
 			return;
 		}
 
-		$response = $this->create_mono_part_pay_order( $order );
+		$response = $this->create_mono_hire_purchase_order( $order );
 
 		if ( is_wp_error( $response ) ) {
 			wp_send_json_error( array( 'message' => 'API request failed', 'error' => $response->get_error_message() ) );
@@ -222,7 +222,7 @@ class Mono_Part_Pay_API {
 
 			// Use the update_order_meta for updating status and sub-state
 			$this->update_order_meta( $order, [ 
-				'_mono_pay_part_status' => $response_message,
+				'_mono_hire_purchase_status' => $response_message,
 			] );
 
 			// Use delete_order_meta for deleting unused meta fields
@@ -236,11 +236,11 @@ class Mono_Part_Pay_API {
 
 				if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 					// HPOS compatible method
-					$order->update_meta_data( '_mono_pay_part_order_id', $mono_pay_order_id );
+					$order->update_meta_data( '_mono_hire_purchase_order_id', $mono_pay_order_id );
 					$order->save();
 				} else {
 					// Legacy method
-					update_post_meta( $order_id, '_mono_pay_part_order_id', $mono_pay_order_id );
+					update_post_meta( $order_id, '_mono_hire_purchase_order_id', $mono_pay_order_id );
 				}
 			}
 
@@ -259,18 +259,18 @@ class Mono_Part_Pay_API {
 	 *
 	 * @param WC_Order $order The WooCommerce order object.
 	 */
-	public function create_mono_part_pay_order( $order ) {
+	public function create_mono_hire_purchase_order( $order ) {
 
-		$is_test_mode = get_option( 'mono_pay_part_test_mode', '0' ) === '1';
+		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
 		// Use test or production credentials based on the mode
 		if ( $is_test_mode ) {
-			$api_url = get_option( 'mono_pay_part_test_api_url' ); // Test API URL
-			$store_id = get_option( 'mono_pay_part_test_store_id' ); // Test Store ID
-			$sign_key = get_option( 'mono_pay_part_test_sign_key' ); // Test Sign Key
+			$api_url = get_option( 'mono_hire_purchase_test_api_url' ); // Test API URL
+			$store_id = get_option( 'mono_hire_purchase_test_store_id' ); // Test Store ID
+			$sign_key = get_option( 'mono_hire_purchase_test_sign_key' ); // Test Sign Key
 		} else {
-			$api_url = get_option( 'mono_pay_part_api_url' ); // Production API URL
-			$store_id = get_option( 'mono_pay_part_store_id' ); // Production Store ID
-			$sign_key = get_option( 'mono_pay_part_sign_key' ); // Production Sign Key
+			$api_url = get_option( 'mono_hire_purchase_api_url' ); // Production API URL
+			$store_id = get_option( 'mono_hire_purchase_store_id' ); // Production Store ID
+			$sign_key = get_option( 'mono_hire_purchase_sign_key' ); // Production Sign Key
 		}
 		$order_id = $order->get_id();
 		$order_total = $order->get_total();
@@ -396,11 +396,11 @@ class Mono_Part_Pay_API {
 		// Retrieve the Mono Pay Order ID from the meta, considering HPOS and Legacy compatibility
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// HPOS compatible method
-			$mono_pay_order_id = $order->get_meta( '_mono_pay_part_order_id', true );
+			$mono_pay_order_id = $order->get_meta( '_mono_hire_purchase_order_id', true );
 			$shipment_state = $order->get_meta( '_mono_order_confirm_shipment_status', true ) ?: null;
 		} else {
 			// Legacy method
-			$mono_pay_order_id = get_post_meta( $order_id, '_mono_pay_part_order_id', true );
+			$mono_pay_order_id = get_post_meta( $order_id, '_mono_hire_purchase_order_id', true );
 			$shipment_state = get_post_meta( $order_id, '_mono_order_confirm_shipment_status', true ) ?: null;
 		}
 
@@ -454,10 +454,10 @@ class Mono_Part_Pay_API {
 	 * @return array|WP_Error The API response or an error.
 	 */
 	public function get_mono_order_data( $mono_pay_order_id ) {
-		$is_test_mode = get_option( 'mono_pay_part_test_mode', '0' ) === '1';
-		$api_url = $is_test_mode ? get_option( 'mono_pay_part_test_api_url' ) : get_option( 'mono_pay_part_api_url' );
-		$store_id = $is_test_mode ? get_option( 'mono_pay_part_test_store_id' ) : get_option( 'mono_pay_part_store_id' );
-		$sign_key = $is_test_mode ? get_option( 'mono_pay_part_test_sign_key' ) : get_option( 'mono_pay_part_sign_key' );
+		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
+		$api_url = $is_test_mode ? get_option( 'mono_hire_purchase_test_api_url' ) : get_option( 'mono_hire_purchase_api_url' );
+		$store_id = $is_test_mode ? get_option( 'mono_hire_purchase_test_store_id' ) : get_option( 'mono_hire_purchase_store_id' );
+		$sign_key = $is_test_mode ? get_option( 'mono_hire_purchase_test_sign_key' ) : get_option( 'mono_hire_purchase_sign_key' );
 
 		// Construct request data
 		$request_data = [ 
@@ -499,10 +499,10 @@ class Mono_Part_Pay_API {
 		// Retrieve the Mono Pay Order ID from the meta, considering HPOS and Legacy compatibility
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// HPOS compatible method
-			$mono_pay_order_id = $order->get_meta( '_mono_pay_part_order_id', true );
+			$mono_pay_order_id = $order->get_meta( '_mono_hire_purchase_order_id', true );
 		} else {
 			// Legacy method
-			$mono_pay_order_id = get_post_meta( $order_id, '_mono_pay_part_order_id', true );
+			$mono_pay_order_id = get_post_meta( $order_id, '_mono_hire_purchase_order_id', true );
 		}
 
 		if ( empty( $mono_pay_order_id ) ) {
@@ -526,19 +526,19 @@ class Mono_Part_Pay_API {
 					// HPOS compatible method
 					$order->update_meta_data( '_mono_order_state', $state );
 					$order->update_meta_data( '_mono_order_sub_state', $order_sub_state );
-					$order->delete_meta_data( '_mono_pay_part_order_id' );
-					$order->delete_meta_data( '_mono_pay_part_status' );
+					$order->delete_meta_data( '_mono_hire_purchase_order_id' );
+					$order->delete_meta_data( '_mono_hire_purchase_status' );
 					$order->delete_meta_data( '_mono_order_confirm_shipment_status' );
 					$order->save();  // Save the order
 				} else {
 					// Legacy method
 					update_post_meta( $order_id, '_mono_order_state', $state );
 					update_post_meta( $order_id, '_mono_order_sub_state', $order_sub_state );
-					delete_post_meta( $order_id, '_mono_pay_part_order_id' );
-					delete_post_meta( $order_id, '_mono_pay_part_status' );
+					delete_post_meta( $order_id, '_mono_hire_purchase_order_id' );
+					delete_post_meta( $order_id, '_mono_hire_purchase_status' );
 					delete_post_meta( $order_id, '_mono_order_confirm_shipment_status' );
 				}
-				$order->update_status( 'cancelled', __('Mono Part Pay method cancelled by shop admin', 'mono-pay-part') );
+				$order->update_status( 'cancelled', __('Mono Part Pay method cancelled by shop admin', 'mono-hire-purchase') );
 				$order->save();
 
 				// Return a success response after the meta fields are removed
@@ -566,10 +566,10 @@ class Mono_Part_Pay_API {
 	 * @return array|WP_Error The API response or an error.
 	 */
 	public function reject_mono_order( $mono_pay_order_id ) {
-		$is_test_mode = get_option( 'mono_pay_part_test_mode', '0' ) === '1';
-		$api_url = $is_test_mode ? get_option( 'mono_pay_part_test_api_url' ) : get_option( 'mono_pay_part_api_url' );
-		$store_id = $is_test_mode ? get_option( 'mono_pay_part_test_store_id' ) : get_option( 'mono_pay_part_store_id' );
-		$sign_key = $is_test_mode ? get_option( 'mono_pay_part_test_sign_key' ) : get_option( 'mono_pay_part_sign_key' );
+		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
+		$api_url = $is_test_mode ? get_option( 'mono_hire_purchase_test_api_url' ) : get_option( 'mono_hire_purchase_api_url' );
+		$store_id = $is_test_mode ? get_option( 'mono_hire_purchase_test_store_id' ) : get_option( 'mono_hire_purchase_store_id' );
+		$sign_key = $is_test_mode ? get_option( 'mono_hire_purchase_test_sign_key' ) : get_option( 'mono_hire_purchase_sign_key' );
 
 		// Construct request data
 		$request_data = [ 
@@ -610,9 +610,9 @@ class Mono_Part_Pay_API {
 
 		// Retrieve the Mono Pay Order ID from the meta
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
-			$mono_pay_order_id = $order->get_meta( '_mono_pay_part_order_id', true );
+			$mono_pay_order_id = $order->get_meta( '_mono_hire_purchase_order_id', true );
 		} else {
-			$mono_pay_order_id = get_post_meta( $order_id, '_mono_pay_part_order_id', true );
+			$mono_pay_order_id = get_post_meta( $order_id, '_mono_hire_purchase_order_id', true );
 		}
 
 		if ( empty( $mono_pay_order_id ) ) {
@@ -640,7 +640,7 @@ class Mono_Part_Pay_API {
 					update_post_meta( $order_id, '_mono_order_confirm_shipment_status', $shipment_status );
 				}
 
-				$order->update_status( 'completed', __( 'Mono Part Pay finished. Shipment confirmed by shop admin', 'mono-pay-part' ) );
+				$order->update_status( 'completed', __( 'Mono Part Pay finished. Shipment confirmed by shop admin', 'mono-hire-purchase' ) );
 				$order->save();
 			}
 
@@ -655,10 +655,10 @@ class Mono_Part_Pay_API {
 	}
 
 	public function confirm_mono_order_shipment( $mono_pay_order_id ) {
-		$is_test_mode = get_option( 'mono_pay_part_test_mode', '0' ) === '1';
-		$api_url = $is_test_mode ? get_option( 'mono_pay_part_test_api_url' ) : get_option( 'mono_pay_part_api_url' );
-		$store_id = $is_test_mode ? get_option( 'mono_pay_part_test_store_id' ) : get_option( 'mono_pay_part_store_id' );
-		$sign_key = $is_test_mode ? get_option( 'mono_pay_part_test_sign_key' ) : get_option( 'mono_pay_part_sign_key' );
+		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
+		$api_url = $is_test_mode ? get_option( 'mono_hire_purchase_test_api_url' ) : get_option( 'mono_hire_purchase_api_url' );
+		$store_id = $is_test_mode ? get_option( 'mono_hire_purchase_test_store_id' ) : get_option( 'mono_hire_purchase_store_id' );
+		$sign_key = $is_test_mode ? get_option( 'mono_hire_purchase_test_sign_key' ) : get_option( 'mono_hire_purchase_sign_key' );
 
 		// Construct the request data
 		$request_data = [ 
@@ -684,4 +684,4 @@ class Mono_Part_Pay_API {
 	}
 }
 
-new Mono_Part_Pay_API();
+new Mono_Hire_Purchase_API();

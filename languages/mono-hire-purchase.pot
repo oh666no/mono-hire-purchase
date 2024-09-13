@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mono Pay-part 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-13 21:07+0000\n"
+"POT-Creation-Date: 2024-09-13 22:54+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: \n"
@@ -15,10 +15,6 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE"
 
-#: includes/class.part-pay-method.php:20
-msgid "Allows customers to pay using Mono Part Pay Method."
-msgstr ""
-
 #: includes/class.admin-wc-order.php:111
 msgid "Application status"
 msgstr ""
@@ -29,10 +25,6 @@ msgstr ""
 
 #: includes/class.settings.php:160
 msgid "Available Parts"
-msgstr ""
-
-#: includes/class.part-pay-method.php:108
-msgid "Awaiting Mono Part Pay payment acceptance"
 msgstr ""
 
 #: includes/class.admin-wc-order.php:134
@@ -47,18 +39,6 @@ msgstr ""
 msgid "Confirm Shipment"
 msgstr ""
 
-#: includes/class.part-pay-method.php:54
-msgid "Description"
-msgstr ""
-
-#: includes/class.part-pay-method.php:75
-msgid "Desired payments number"
-msgstr ""
-
-#: includes/class.part-pay-method.php:43
-msgid "Enable Mono Part Pay Method"
-msgstr ""
-
 #: includes/class.settings.php:52
 msgid "Enable Part Pay Method"
 msgstr ""
@@ -67,22 +47,26 @@ msgstr ""
 msgid "Enable Test Mode"
 msgstr ""
 
-#: includes/class.part-pay-method.php:41
-msgid "Enable/Disable"
-msgstr ""
-
 #: includes/class.settings.php:365
 msgid "Enter comma-separated numbers between 3 and 25."
 msgstr ""
 
 #: includes/class.settings.php:273
 msgid ""
-"For more information about the Mono Pay-part API, please refer to the "
+"For more information about the Mono Hire Purchase API, please refer to the "
 "official documentation."
 msgstr ""
 
 #. URI of the plugin
 msgid "https://pkotula.com/"
+msgstr ""
+
+#: includes/class.settings.php:20
+msgid "Mono Hire Purchase"
+msgstr ""
+
+#: includes/class.settings.php:19 includes/class.settings.php:261
+msgid "Mono Hire Purchase Settings"
 msgstr ""
 
 #: includes/class.admin-wc-order.php:121
@@ -109,10 +93,6 @@ msgstr ""
 msgid "Mono Part Pay finished. Shipment confirmed by shop admin"
 msgstr ""
 
-#: includes/class.part-pay-method.php:19 includes/class.part-pay-method.php:50
-msgid "Mono Part Pay Method"
-msgstr ""
-
 #: includes/class.mono-api.php:541
 msgid "Mono Part Pay method cancelled by shop admin"
 msgstr ""
@@ -137,25 +117,9 @@ msgstr ""
 msgid "Mono Pay Status:"
 msgstr ""
 
-#: includes/class.settings.php:20
-msgid "Mono Pay-part"
-msgstr ""
-
 #. Name of the plugin
-msgid "Mono Pay-Part Gateway"
+msgid "Monobank Hire Purchase Gateway"
 msgstr ""
-
-#: includes/class.settings.php:19 includes/class.settings.php:261
-msgid "Mono Pay-part Settings"
-msgstr ""
-
-#: includes/class.part-pay-method.php:82
-#, php-format
-msgctxt "Number of payments"
-msgid "%s payment"
-msgid_plural "%s payments"
-msgstr[0] ""
-msgstr[1] ""
 
 #: includes/class.settings.php:245
 msgid "Only numbers between 3 and 25 are allowed. These values were rejected: "
@@ -164,10 +128,6 @@ msgstr ""
 #: includes/class.admin-wc-order.php:154
 msgid ""
 "Order status has changed. Please reload the page to see the most recent data"
-msgstr ""
-
-#: includes/class.part-pay-method.php:57
-msgid "Pay using Mono Part Pay Method."
 msgstr ""
 
 #: includes/class.settings.php:173
@@ -202,7 +162,7 @@ msgstr ""
 msgid "Remove Image"
 msgstr ""
 
-#: mono-pay-part.php:92
+#: woo-monobank-hire-purchase.php:92
 msgid "Restare Mono Pay-part requires WooCommerce to be active."
 msgstr ""
 
@@ -226,7 +186,7 @@ msgstr ""
 msgid "Shipment status"
 msgstr ""
 
-#: mono-pay-part.php:46
+#: woo-monobank-hire-purchase.php:46
 msgid "Shortcode copied to clipboard!"
 msgstr ""
 
@@ -249,20 +209,8 @@ msgid ""
 "providing real-time payment status updates and order management."
 msgstr ""
 
-#: includes/class.part-pay-method.php:56
-msgid "This controls the description which the user sees during checkout."
-msgstr ""
-
-#: includes/class.part-pay-method.php:49
-msgid "This controls the title which the user sees during checkout."
-msgstr ""
-
 #: includes/class.settings.php:180
 msgid "This logo is displayed on a checkout page."
-msgstr ""
-
-#: includes/class.part-pay-method.php:47
-msgid "Title"
 msgstr ""
 
 #: includes/class.mono-api.php:181
@@ -279,6 +227,6 @@ msgstr ""
 
 #: includes/class.settings.php:194
 msgid ""
-"You can place this banner anywhere using <code>[mono_pay_part_banner]</code> "
-"shortcode"
+"You can place this banner anywhere using <code>[mono_hire_purchase_banner]"
+"</code> shortcode"
 msgstr ""
