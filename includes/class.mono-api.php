@@ -60,7 +60,7 @@ class Mono_Hire_Purchase_API {
 		} else {
 			global $post;
 			// For legacy storage: Retrieve the order using the post ID
-			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->ID;
+			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->get_id();
 			$order = wc_get_order( $order_id );
 		}
 		wp_localize_script( 'mono-heartbeat-script', 'monoOrderData', array(

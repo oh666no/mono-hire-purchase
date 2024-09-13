@@ -46,7 +46,7 @@ class Mono_Hire_Purchase_Admin_Order {
 
 			global $post;
 			// For legacy storage: Retrieve the order using the post ID
-			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->ID;
+			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->get_id();
 			$order = wc_get_order( $order_id );
 			if ( $order && $order->get_payment_method() === 'mono_hire_purchase' ) {
 				add_meta_box(
@@ -83,13 +83,13 @@ class Mono_Hire_Purchase_Admin_Order {
 			$shipment_status = $order->get_meta( '_mono_order_confirm_shipment_status', true );
 		} else {
 			// Legacy method
-			$order = wc_get_order( $post->ID );
-			$selected_payments = get_post_meta( $post->ID, '_user_desired_payments_number', true );
-			$mono_pay_status = get_post_meta( $post->ID, '_mono_hire_purchase_status', true );
-			$mono_pay_order_id = get_post_meta( $post->ID, '_mono_hire_purchase_order_id', true );
-			$mono_order_state = get_post_meta( $post->ID, '_mono_order_state', true );
-			$mono_order_sub_state = get_post_meta( $post->ID, '_mono_order_sub_state', true );
-			$shipment_status = get_post_meta( $post->ID, '_mono_order_confirm_shipment_status', true );
+			$order = wc_get_order( $post->get_id() );
+			$selected_payments = get_post_meta( $post->get_id(), '_user_desired_payments_number', true );
+			$mono_pay_status = get_post_meta( $post->get_id(), '_mono_hire_purchase_status', true );
+			$mono_pay_order_id = get_post_meta( $post->get_id(), '_mono_hire_purchase_order_id', true );
+			$mono_order_state = get_post_meta( $post->get_id(), '_mono_order_state', true );
+			$mono_order_sub_state = get_post_meta( $post->get_id(), '_mono_order_sub_state', true );
+			$shipment_status = get_post_meta( $post->get_id(), '_mono_order_confirm_shipment_status', true );
 		}
 
 		// Add a div to display the Mono Part Pay data with placeholders for the values
@@ -162,7 +162,7 @@ class Mono_Hire_Purchase_Admin_Order {
 		wp_nonce_field( 'mono_pay_order_nonce_action', 'mono_pay_order_nonce' );
 
 		// Include order ID as a data attribute for Ajax
-		echo '<input type="hidden" id="mono-pay-order-id" value="' . esc_attr( $post->ID ) . '">';
+		echo '<input type="hidden" id="mono-pay-order-id" value="' . esc_attr( $post->get_id() ) . '">';
 	}
 }
 

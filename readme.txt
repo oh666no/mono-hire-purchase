@@ -1,7 +1,7 @@
 === Mono Hire Purchase ===
 Contributors: pkotula
 Donate link: https://pkotula.com/
-Tags: woocommerce, payment gateway, mono bank, installments, payments
+Tags: woocommerce, payment gateway, monobank, installments, payments
 Requires at least: 5.0
 Tested up to: 6.3
 Requires PHP: 7.2
