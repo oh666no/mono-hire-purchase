@@ -6,7 +6,7 @@ Requires at least: 5.0
 Tested up to: 6.6.2
 Requires PHP: 7.2
 Stable tag: 1.0
-License: GPLv2 or later
+License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Integrate Mono Bank's installment payment system into WooCommerce, allowing customers to split payments and providing real-time payment status updates and order management.
