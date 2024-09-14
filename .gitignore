@@ -1,6 +1,10 @@
 # Ignore node modules
 node_modules/
 npm-debug.log*
+vendor/
+zip_plugin.sh
+composer.json
+composer.lock
 
 # Ignore logs
 logs/*

@@ -1,9 +1,8 @@
 {
   "devDependencies": {
-    "@wordpress/scripts": "^29.0.0"
+    "@wordpress/scripts": "^26.12.0"
   },
   "scripts": {
     "build": "wp-scripts build assets/js/mono-hire-purchase-blocks.js"
   }
 }
-
