@@ -151,7 +151,7 @@ class Mono_Hire_Purchase_Admin_Order {
 			. '>'
 			. esc_html__( 'Confirm Shipment', 'mono-hire-purchase' )
 			. '</button>';
-		echo '<div class="order_status_updated hide"><span class="dashicons dashicons-info"></span>' . __('Order status has changed. Please reload the page to see the most recent data', 'mono-hire-purchase') . '<button id="reload" class="button button-secondary" >' . __('Reload', 'mono-hire-purchase'). '</button></div>';
+		echo '<div class="order_status_updated hide"><span class="dashicons dashicons-info"></span>' . esc_html__('Order status has changed. Please reload the page to see the most recent data', 'mono-hire-purchase') . '<button id="reload" class="button button-secondary" >' . esc_html__('Reload', 'mono-hire-purchase'). '</button></div>';
 		echo '</div>';
 
 		// Container for displaying the result

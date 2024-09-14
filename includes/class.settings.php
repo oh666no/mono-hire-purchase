@@ -207,9 +207,9 @@ class Mono_Hire_Purchase_Settings {
 		</div>
 		<input type="hidden" id="<?php echo esc_attr( $args['id'] ); ?>" name="<?php echo esc_attr( $option_name ); ?>"
 			value="<?php echo esc_attr( $value ); ?>" />
-		<button class="button mono-pay-upload-button"><?php _e( 'Choose Image', 'mono-hire-purchase' ); ?></button>
+		<button class="button mono-pay-upload-button"><?php esc_html_e( 'Choose Image', 'mono-hire-purchase' ); ?></button>
 		<button class="button mono-pay-remove-button"
-			style="display:<?php echo ( ! empty( $value ) ) ? 'inline-block' : 'none'; ?>"><?php _e( 'Remove Image', 'mono-hire-purchase' ); ?></button>
+			style="display:<?php echo ( ! empty( $value ) ) ? 'inline-block' : 'none'; ?>"><?php esc_html_e( 'Remove Image', 'mono-hire-purchase' ); ?></button>
 		<p class="description"><?php echo wp_kses_post( $args['description'] ); ?></p>
 
 		<?php
@@ -258,7 +258,7 @@ class Mono_Hire_Purchase_Settings {
 	public function settings_page_content() {
 		?>
 		<div class="wrap">
-			<h1><?php _e( 'Mono Hire Purchase Settings', 'mono-hire-purchase' ); ?></h1>
+			<h1><?php esc_html_e( 'Mono Hire Purchase Settings', 'mono-hire-purchase' ); ?></h1>
 			<form method="post" action="options.php">
 				<?php
 				settings_errors();
@@ -268,12 +268,11 @@ class Mono_Hire_Purchase_Settings {
 				?>
 			</form>
 			<!-- Documentation Link Section -->
-			<!-- Documentation Link Section -->
 			<div class="documentation-section">
-				<p><?php _e( 'For more information about the Mono Hire Purchase API, please refer to the official documentation.', 'mono-hire-purchase' ); ?>
+				<p><?php esc_html_e( 'For more information about the Mono Hire Purchase API, please refer to the official documentation.', 'mono-hire-purchase' ); ?>
 				</p>
 				<a href="https://u2-demo-ext.mono.st4g3.com/docs/index.html" target="_blank"
-					class="button button-secondary"><?php _e( 'View Documentation', 'mono-hire-purchase' ); ?></a>
+					class="button button-secondary"><?php esc_html_e( 'View Documentation', 'mono-hire-purchase' ); ?></a>
 			</div>
 		</div>
 
@@ -322,9 +321,9 @@ class Mono_Hire_Purchase_Settings {
 					var id = button.prevAll('input[type="hidden"]').attr('id'); // Adjusted to find the input hidden field
 
 					var custom_uploader = wp.media({
-						title: '<?php _e( "Select Image", "mono-hire-purchase" ); ?>',
+						title: '<?php esc_html_e( "Select Image", "mono-hire-purchase" ); ?>',
 						button: {
-							text: '<?php _e( "Use this image", "mono-hire-purchase" ); ?>'
+							text: '<?php esc_html_e( "Use this image", "mono-hire-purchase" ); ?>'
 						},
 						multiple: false
 					}).on('select', function () {
@@ -362,7 +361,7 @@ class Mono_Hire_Purchase_Settings {
 		$option_name = $args['option_name'];
 		$value = get_option( $option_name );
 		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $value ) . '" />';
-		echo '<p class="description">' . __( 'Enter comma-separated numbers between 3 and 25.', 'mono-hire-purchase' ) . '</p>';
+		echo '<p class="description">' . esc_html_e( 'Enter comma-separated numbers between 3 and 25.', 'mono-hire-purchase' ) . '</p>';
 	}
 	public function checkbox_callback( $args ) {
 		$option_name = $args['option_name'];

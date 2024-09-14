@@ -89,7 +89,7 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	function mono_hire_purchase_woocommerce_notice() {
 		?>
 		<div class="notice notice-error">
-			<p><?php _e( 'Restare Mono Pay-part requires WooCommerce to be active.', 'mono-hire-purchase' ); ?></p>
+			<p><?php esc_html_e( 'Restare Mono Pay-part requires WooCommerce to be active.', 'mono-hire-purchase' ); ?></p>
 		</div>
 		<?php
 	}

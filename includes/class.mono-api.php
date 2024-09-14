@@ -10,9 +10,25 @@ class Mono_Hire_Purchase_API {
 		// Define the log file path
 		$this->log_file_path = MONO_HIRE_PURCHASE_PLUGIN_DIR . 'logs/api-calls.log';
 
-		// Ensure the logs directory exists
-		if ( ! file_exists( dirname( $this->log_file_path ) ) ) {
-			mkdir( dirname( $this->log_file_path ), 0755, true );
+		// Initialize WP_Filesystem
+		global $wp_filesystem;
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
+		WP_Filesystem();
+
+		// Get the directory path
+		$log_dir = dirname( $this->log_file_path );
+
+		// Ensure the logs directory exists, if not create it
+		if ( ! $wp_filesystem->is_dir( $log_dir ) ) {
+			$wp_filesystem->mkdir( $log_dir, 0755 );
+		}
+
+		// Ensure the log file exists, if not create it
+		if ( ! $wp_filesystem->exists( $this->log_file_path ) ) {
+			$wp_filesystem->put_contents( $this->log_file_path, '', 0755 ); // Create an empty file with correct permissions
 		}
 
 		// Register WooCommerce API endpoint for payment callback
@@ -70,6 +86,14 @@ class Mono_Hire_Purchase_API {
 	}
 	// Custom logging function
 	private function log_message( $message ) {
+		global $wp_filesystem;
+
+		// Initialize the WP_Filesystem API if it's not already loaded
+		if ( ! function_exists( 'WP_Filesystem' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+		WP_Filesystem();
+		
 		// Determine the path relative to the plugin root
 		$file = str_replace( MONO_HIRE_PURCHASE_PLUGIN_DIR, '', debug_backtrace()[0]['file'] );
 		$function = debug_backtrace()[1]['function'];
@@ -77,7 +101,7 @@ class Mono_Hire_Purchase_API {
 		$context = $file . ' - ' . $function;
 
 		// Format the log entry
-		$log_entry = '[' . date( 'Y-m-d H:i:s' ) . "][" . $context . "] " . $message . PHP_EOL;
+		$log_entry = '[' . gmdate( 'Y-m-d H:i:s' ) . "][" . $context . "] " . $message . PHP_EOL;
 
 		// Check if log file exists
 		if ( file_exists( $this->log_file_path ) ) {
@@ -90,13 +114,31 @@ class Mono_Hire_Purchase_API {
 			// Rotate log if it's older than 7 days
 			if ( $file_age_in_days > 7 ) {
 				// Rename the current log file by appending the date of rotation
-				$new_log_file_name = $this->log_file_path . '-' . date( 'Y-m-d-H-i-s', $last_modified_time ) . '.log';
-				rename( $this->log_file_path, $new_log_file_name );
+				$new_log_file_name = $this->log_file_path . '-' . gmdate( 'Y-m-d-H-i-s', $last_modified_time ) . '.log';
+
+				// Define the current log file and the new log file path
+				$old_log_file = $this->log_file_path;
+				$new_log_file = $new_log_file_name;
+
+				// Check if the old log file exists before moving it
+				if ( $wp_filesystem->exists( $old_log_file ) ) {
+					// Use WP_Filesystem to rename (move) the file
+					$wp_filesystem->move( $old_log_file, $new_log_file );
+				}
 			}
 		}
 
-		// Write the log entry to the file
-		file_put_contents( $this->log_file_path, $log_entry, FILE_APPEND );
+		// Define the log entry and the file path
+		$log_file = $this->log_file_path;
+
+		// Ensure the log file exists or create it if necessary
+		if ( $wp_filesystem->exists( $log_file ) ) {
+			// Append the log entry to the file
+			$existing_content = $wp_filesystem->get_contents( $log_file ); // Get existing file content
+			$log_entry = $existing_content . $log_entry; // Append new log entry to existing content
+		}
+
+		$wp_filesystem->put_contents( $log_file, $log_entry, FS_CHMOD_FILE ); // Write the log entry to the file
 	}
 
 	private function update_order_meta( $order, $meta_data ) {
@@ -131,7 +173,7 @@ class Mono_Hire_Purchase_API {
 		if ( ! isset( $_SERVER['HTTP_SIGNATURE'] ) ) {
 			$this->log_message( 'Missing HTTP_SIGNATURE' );
 			header( 'HTTP/1.1 400 Bad Request' );
-			echo json_encode( [ 'message' => 'Missing signature' ] );
+			echo wp_json_encode( [ 'message' => 'Missing signature' ] );
 			return;
 		}
 
@@ -154,7 +196,7 @@ class Mono_Hire_Purchase_API {
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
 			$this->log_message( 'Invalid JSON: ' . json_last_error_msg() );
 			header( 'HTTP/1.1 400 Bad Request' );
-			echo json_encode( [ 'message' => 'Invalid JSON' ] );
+			echo wp_json_encode( [ 'message' => 'Invalid JSON' ] );
 			return;
 		}
 
@@ -188,7 +230,7 @@ class Mono_Hire_Purchase_API {
 
 		// Send a response
 		header( 'HTTP/1.1 200 OK' );
-		echo json_encode( [ 'message' => 'Payment callback processed successfully' ] );
+		echo wp_json_encode( [ 'message' => 'Payment callback processed successfully' ] );
 	}
 
 	/**
@@ -287,7 +329,7 @@ class Mono_Hire_Purchase_API {
 			$post_order = wc_get_order( $order_id );
 			$selected_payments_qty = $post_order->get_meta( '_user_desired_payments_number', true );
 		}
-		$parsed_url = parse_url( home_url() );
+		$parsed_url = wp_parse_url( home_url() );
 		$domain = preg_replace( '/^www\./', '', $parsed_url['host'] );
 		// Construct the request string
 		$request_data = [ 

@@ -69,10 +69,10 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 		sort( $available_parts );
 
 		echo '<div>';
-		echo wpautop( wp_kses_post( $this->description ) );
+		echo wp_kses_post( wpautop( esc_html( $this->description ) ) );
 
 		// Create the dropdown for available parts
-		echo '<label for="desired_parts">' . __( 'Desired payments number', 'mono-pay-part' ) . '</label>';
+		echo '<label for="desired_parts">' . esc_html__( 'Desired payments number', 'mono-pay-part' ) . '</label>';
 		echo '<select name="desired_parts" id="desired_parts">';
 		foreach ( $available_parts as $part ) {
 			echo sprintf(
@@ -91,7 +91,7 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 	public function process_payment( $order_id ) {
 		$order = wc_get_order( $order_id );
 
-		$desired_parts = isset( $_POST['desired_parts'] ) ? sanitize_text_field( $_POST['desired_parts'] ) : '';
+		$desired_parts = isset( $_POST['desired_parts'] ) ? sanitize_text_field( wp_unslash( $_POST['desired_parts'] ) ) : '';
 
 		if ( ! empty( $desired_parts ) ) {
 
