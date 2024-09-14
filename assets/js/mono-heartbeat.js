@@ -1,6 +1,7 @@
 jQuery(document).ready(function ($) {
     // Send order ID in heartbeat data
     $(document).on('heartbeat-send.wp-heartbeat', function (e, data) {
+        console.log(monoOrderData);
         var orderID = monoOrderData.orderID; // Use the localized WooCommerce order ID
         if (orderID) {
             data.mono_order_status = {

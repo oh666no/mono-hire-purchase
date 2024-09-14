@@ -72,12 +72,6 @@ class Mono_Hire_Purchase_API {
 	public function enable_heartbeat_on_orders_page() {
 		global $post;
 
-		// Ensure we're working with a valid post object and that it's the 'shop_order' post type
-		if ( ! is_a( $post, 'WP_Post' ) || $post->post_type !== 'shop_order' ) {
-			// If not a valid WP_Post object or not an order page, early return
-			return;
-		}
-
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// For HPOS: Get the order ID from the URL or elsewhere
 			$order_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
@@ -87,12 +81,17 @@ class Mono_Hire_Purchase_API {
 			}
 		} else {
 			// For legacy storage: Use the global post object and retrieve the order ID
-			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->ID;
-			$order = wc_get_order( $order_id );
-			if ( ! $order ) {
-				// If the order is not found, return early
+			if ( ! is_a( $post, 'WP_Post' ) || $post->post_type !== 'shop_order' ) {
+				// If not a valid WP_Post object or not an order page, early return
 				return;
 			}
+			$order_id = $post->ID;
+		}
+
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			// If the order is not found, return early
+			return;
 		}
 
 		// Localize the script with the order ID and heartbeat settings
@@ -220,8 +219,25 @@ class Mono_Hire_Purchase_API {
 		// Query the database for the order
 		$meta_key = '_mono_hire_purchase_order_id';
 		$meta_value = $request_data['order_id'];
-		$query = $wpdb->prepare( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s LIMIT 1", $meta_key, $meta_value );
-		$order_id = $wpdb->get_var( $query );
+
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			// HPOS is enabled
+			$order_id = wc_get_orders( array(
+				'meta_key' => $meta_key,
+				'meta_value' => $meta_value,
+				'limit' => 1,
+				'return' => 'ids',
+			) );
+			$order_id = ! empty( $order_id ) ? $order_id[0] : null;
+		} else {
+			// Traditional post meta storage
+			$query = $wpdb->prepare(
+				"SELECT post_id FROM $wpdb->postmeta WHERE meta_key = %s AND meta_value = %s LIMIT 1",
+				$meta_key,
+				$meta_value
+			);
+			$order_id = $wpdb->get_var( $query );
+		}
 
 		if ( $order_id ) {
 			$order = wc_get_order( $order_id );
@@ -233,16 +249,16 @@ class Mono_Hire_Purchase_API {
 				] );
 
 				if ( $request_data['state'] === 'SUCCESS' ) {
-					$order->update_status( 'processing', __( 'Mono Part Pay payment Approved by Bank', 'mono-hire-purchase' ) );
+					$order->update_status( 'processing', esc_html__( 'Mono Part Pay payment Approved by Bank', 'mono-hire-purchase' ) );
 				} elseif ( $request_data['state'] === 'FAIL' ) {
-					$order->update_status( 'failed', __('Mono Part Pay payment Failed. Reason: ', 'mono-hire-purchase') . $request_data['order_sub_state'] );
+					$order->update_status( 'failed', esc_html__( 'Mono Part Pay payment Failed. Reason: ', 'mono-hire-purchase' ) . esc_html( $request_data['order_sub_state'] ) );
 				} else {
-					$order->update_status( 'on-hold', __('Unknown payment status via Mono Part Pay.', 'mono-hire-purchase') );
+					$order->update_status( 'on-hold', esc_html__( 'Unknown payment status via Mono Part Pay.', 'mono-hire-purchase' ) );
 				}
 				$order->save();
 			}
 		} else {
-			$this->log_message( 'Order not found for Mono Pay Order ID: ' . $meta_value );
+			$this->log_message( 'Order not found for Mono Pay Order ID: ' . esc_html( $meta_value ) );
 		}
 
 		// Send a response
@@ -594,7 +610,7 @@ class Mono_Hire_Purchase_API {
 					delete_post_meta( $order_id, '_mono_hire_purchase_status' );
 					delete_post_meta( $order_id, '_mono_order_confirm_shipment_status' );
 				}
-				$order->update_status( 'cancelled', __('Mono Part Pay method cancelled by shop admin', 'mono-hire-purchase') );
+				$order->update_status( 'cancelled', esc_html__( 'Mono Part Pay method cancelled by shop admin', 'mono-hire-purchase' ) );
 				$order->save();
 
 				// Return a success response after the meta fields are removed
@@ -696,7 +712,7 @@ class Mono_Hire_Purchase_API {
 					update_post_meta( $order_id, '_mono_order_confirm_shipment_status', $shipment_status );
 				}
 
-				$order->update_status( 'completed', __( 'Mono Part Pay finished. Shipment confirmed by shop admin', 'mono-hire-purchase' ) );
+				$order->update_status( 'completed', esc_html__( 'Mono Part Pay finished. Shipment confirmed by shop admin', 'mono-hire-purchase' ) );
 				$order->save();
 			}
 
