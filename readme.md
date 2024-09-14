@@ -4,7 +4,7 @@
 **Donate link:** [https://pkotula.com/](https://pkotula.com/)  
 **Tags:** woocommerce, payment gateway, monobank, installments, payments  
 **Requires at least:** 5.0  
-**Tested up to:** 6.3  
+**Tested up to:** 6.6.2  
 **Requires PHP:** 7.2  
 **Stable tag:** 1.0  
 **License:** GPLv2
