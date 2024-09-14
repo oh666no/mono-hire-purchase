@@ -78,10 +78,13 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 			echo sprintf(
 				'<option value="%1$s">%2$s</option>',
 				esc_attr( $part ),
-				esc_html( sprintf(
-					_nx( '%s payment', '%s payments', $part, 'Number of payments', 'mono-pay-part' ),
-					number_format_i18n( $part )
-				) )
+				esc_html( 
+					// translators: %s: Number of payments
+					sprintf(
+						_nx( '%s payment', '%s payments', $part, 'Number of payments', 'mono-pay-part' ),
+						number_format_i18n( $part )
+					)
+				)
 			);
 		}
 		echo '</select>';
