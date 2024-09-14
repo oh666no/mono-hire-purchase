@@ -79,8 +79,8 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 				'<option value="%1$s">%2$s</option>',
 				esc_attr( $part ),
 				esc_html( 
-					// translators: %s: Number of payments
 					sprintf(
+						// translators: %s: Number of payments
 						_nx( '%s payment', '%s payments', $part, 'Number of payments', 'mono-pay-part' ),
 						number_format_i18n( $part )
 					)
