@@ -11,7 +11,7 @@ jQuery(document).ready(function ($) {
 
     // Process the heartbeat response
     $(document).on('heartbeat-tick.wp-heartbeat', function (e, data) {
-        
+
         if (data.mono_order_status) {
             var $col2Element = $('.col-2');  // Parent element to apply background fade
             var fadeDuration = 400; // Set a consistent duration for all animations

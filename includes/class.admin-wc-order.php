@@ -46,7 +46,7 @@ class Mono_Hire_Purchase_Admin_Order {
 
 			global $post;
 			// For legacy storage: Retrieve the order using the post ID
-			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->get_id();
+			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->ID;
 			$order = wc_get_order( $order_id );
 			if ( $order && $order->get_payment_method() === 'mono_hire_purchase' ) {
 				add_meta_box(
@@ -71,25 +71,25 @@ class Mono_Hire_Purchase_Admin_Order {
 		// Initialize variables for meta values
 		$selected_payments = $mono_pay_status = $mono_pay_order_id = $mono_order_state = $mono_order_sub_state = $shipment_status = '';
 
+		$selected_payments = $mono_pay_status = $mono_pay_order_id = $mono_order_state = $mono_order_sub_state = $shipment_status = '';
+
 		// Check for HPOS compatibility and retrieve the order meta data
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			$order_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
 			$order = is_a( $post, 'WC_Order' ) ? $post : wc_get_order( $order_id );
+		} else {
+			$order_id = $post->ID;
+			$order = wc_get_order( $order_id );
+		}
+
+		if ( $order ) {
+			// Use getter methods instead of directly accessing properties
 			$selected_payments = $order->get_meta( '_user_desired_payments_number', true );
 			$mono_pay_status = $order->get_meta( '_mono_hire_purchase_status', true );
 			$mono_pay_order_id = $order->get_meta( '_mono_hire_purchase_order_id', true );
 			$mono_order_state = $order->get_meta( '_mono_order_state', true );
 			$mono_order_sub_state = $order->get_meta( '_mono_order_sub_state', true );
 			$shipment_status = $order->get_meta( '_mono_order_confirm_shipment_status', true );
-		} else {
-			// Legacy method
-			$order = wc_get_order( $post->get_id() );
-			$selected_payments = get_post_meta( $post->get_id(), '_user_desired_payments_number', true );
-			$mono_pay_status = get_post_meta( $post->get_id(), '_mono_hire_purchase_status', true );
-			$mono_pay_order_id = get_post_meta( $post->get_id(), '_mono_hire_purchase_order_id', true );
-			$mono_order_state = get_post_meta( $post->get_id(), '_mono_order_state', true );
-			$mono_order_sub_state = get_post_meta( $post->get_id(), '_mono_order_sub_state', true );
-			$shipment_status = get_post_meta( $post->get_id(), '_mono_order_confirm_shipment_status', true );
 		}
 
 		// Add a div to display the Mono Part Pay data with placeholders for the values
@@ -162,7 +162,19 @@ class Mono_Hire_Purchase_Admin_Order {
 		wp_nonce_field( 'mono_pay_order_nonce_action', 'mono_pay_order_nonce' );
 
 		// Include order ID as a data attribute for Ajax
-		echo '<input type="hidden" id="mono-pay-order-id" value="' . esc_attr( $post->get_id() ) . '">';
+		// Check if HPOS is enabled and retrieve the correct order ID
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			// HPOS: Use the provided post object or $_GET['id'] for order ID
+			$order_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+			$order = is_a( $post, 'WC_Order' ) ? $post : wc_get_order( $order_id );
+			$order_id = $order ? $order->get_id() : 0;
+		} else {
+			// Legacy: Use the $post->ID for order ID
+			$order_id = $post->ID;
+		}
+
+		// Include order ID as a hidden input for Ajax
+		echo '<input type="hidden" id="mono-pay-order-id" value="' . esc_attr( $order_id ) . '">';
 	}
 }
 
