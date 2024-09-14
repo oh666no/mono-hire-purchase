@@ -8,6 +8,8 @@ Author: pkotula
 Version: 1.0
 Text Domain: mono-hire-purchase
 Domain Path: /languages
+License: GPLv2
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
