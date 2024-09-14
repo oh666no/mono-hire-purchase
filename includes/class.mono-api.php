@@ -70,15 +70,32 @@ class Mono_Hire_Purchase_API {
         return $response;
     }
 	public function enable_heartbeat_on_orders_page() {
+		global $post;
+
+		// Ensure we're working with a valid post object and that it's the 'shop_order' post type
+		if ( ! is_a( $post, 'WP_Post' ) || $post->post_type !== 'shop_order' ) {
+			// If not a valid WP_Post object or not an order page, early return
+			return;
+		}
 
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			// For HPOS: Get the order ID from the URL or elsewhere
 			$order_id = isset( $_GET['id'] ) ? absint( $_GET['id'] ) : 0;
+			if ( ! $order_id ) {
+				// Early return if there's no valid order ID in the query parameters
+				return;
+			}
 		} else {
-			global $post;
-			// For legacy storage: Retrieve the order using the post ID
-			$order_id = is_a( $post, 'WC_Order' ) ? $post->ID : $post->ID;
+			// For legacy storage: Use the global post object and retrieve the order ID
+			$order_id = is_a( $post, 'WC_Order' ) ? $post->get_id() : $post->ID;
 			$order = wc_get_order( $order_id );
+			if ( ! $order ) {
+				// If the order is not found, return early
+				return;
+			}
 		}
+
+		// Localize the script with the order ID and heartbeat settings
 		wp_localize_script( 'mono-heartbeat-script', 'monoOrderData', array(
 			'heartbeatInterval' => 15,  // Heartbeat interval in seconds
 			'orderID' => $order_id
@@ -180,7 +197,7 @@ class Mono_Hire_Purchase_API {
 		// Fetch secret key and signature
 		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
 		$secret_key = $is_test_mode ? get_option( 'mono_hire_purchase_test_sign_key' ) : get_option( 'mono_hire_purchase_sign_key' );
-		$received_signature = $_SERVER['HTTP_SIGNATURE'];
+		$received_signature = sanitize_text_field( wp_unslash( $_SERVER['HTTP_SIGNATURE'] ) );
 		$request_body = file_get_contents( 'php://input' );
 		$expected_signature = base64_encode( hash_hmac( 'sha256', $request_body, $secret_key, true ) );
 
@@ -415,9 +432,6 @@ class Mono_Hire_Purchase_API {
 		return $order;
 	}
 
-	/**
-	 * Function to check Mono order status via Ajax and send the response back
-	 */
 	/**
 	 * Function to check Mono order status via Ajax, save the response, and send the response back.
 	 */
