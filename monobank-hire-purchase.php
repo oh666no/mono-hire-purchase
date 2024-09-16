@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: Monobank Hire Purchase Gateway
-Description: The Mono Pay-Part plugin adds a WooCommerce payment gateway that integrates Mono Bank’s installment system, enabling customers to split payments while providing real-time payment status updates and order management.
+Description: Adds a WooCommerce payment gateway for Monobank's installment system, enabling split payments with real-time status updates and order management.
 Plugin URI: https://pkotula.com/
 Author: pkotula
 Version: 1.0
@@ -13,14 +13,14 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Prevent direct access to the file
 }
 
-// Define constants
+// Define plugin constants
 define( 'MONO_HIRE_PURCHASE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MONO_HIRE_PURCHASE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-// Load plugin text domain for translations
+// Load plugin translations
 function mono_hire_purchase_load_textdomain() {
 	load_plugin_textdomain( 'mono-hire-purchase', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
@@ -50,34 +50,32 @@ function mono_hire_purchase_enqueue_admin_assets( $hook_suffix ) {
 }
 add_action( 'admin_enqueue_scripts', 'mono_hire_purchase_enqueue_admin_assets' );
 
-// Ensure WooCommerce is active
+// Check if WooCommerce is active
 include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 
-	// Include the settings class
+	// Include required classes
 	require_once MONO_HIRE_PURCHASE_PLUGIN_DIR . 'includes/class.settings.php';
-	// Include the admin order class
 	require_once MONO_HIRE_PURCHASE_PLUGIN_DIR . 'includes/class.admin-wc-order.php';
-	// Include the Mono API class
 	require_once MONO_HIRE_PURCHASE_PLUGIN_DIR . 'includes/class.mono-api.php';
 
+	// Declare compatibility with WooCommerce features
 	add_action( 'before_woocommerce_init', function () {
 		if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class) ) {
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 		}
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			// Declare compatibility for 'cart_checkout_blocks'
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 		}
 	} );
 
-	// Include the payment method class
+	// Initialize the payment gateway
 	function mono_hire_purchase_gateway_init() {
 		require_once MONO_HIRE_PURCHASE_PLUGIN_DIR . 'includes/class.hire-purchase-method.php';
 	}
 	add_action( 'plugins_loaded', 'mono_hire_purchase_gateway_init', 11 );
 
-	// Register the gateway
+	// Register the payment gateway
 	function add_mono_hire_purchase_gateway( $methods ) {
 		if ( get_option( 'mono_hire_purchase_enable_payment_method' ) ) {
 			$methods[] = 'WC_Gateway_Mono_Hire_Purchase';
@@ -87,30 +85,27 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	add_filter( 'woocommerce_payment_gateways', 'add_mono_hire_purchase_gateway' );
 
 } else {
+	// Display notice if WooCommerce is not active
 	add_action( 'admin_notices', 'mono_hire_purchase_woocommerce_notice' );
 	function mono_hire_purchase_woocommerce_notice() {
 		?>
 		<div class="notice notice-error">
-			<p><?php esc_html_e( 'Restare Mono Pay-part requires WooCommerce to be active.', 'mono-hire-purchase' ); ?></p>
+			<p><?php esc_html_e( 'Monobank Hire Purchase Gateway requires WooCommerce to be active.', 'mono-hire-purchase' ); ?></p>
 		</div>
 		<?php
 	}
 }
 
-
+// Register support for WooCommerce Blocks
 add_action( 'woocommerce_blocks_loaded', 'mono_pay_register_block_support' );
 function mono_pay_register_block_support() {
-	// Check if the required class exists
 	if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
 		return;
 	}
-	// Include the custom Blocks Checkout class
 	require_once MONO_HIRE_PURCHASE_PLUGIN_DIR . 'includes/class.mono-block.php';
-	// Hook the registration function to the 'woocommerce_blocks_payment_method_type_registration' action
 	add_action(
 		'woocommerce_blocks_payment_method_type_registration',
 		function (Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry) {
-			// Register an instance of My_Custom_Gateway_Blocks
 			$payment_method_registry->register( new WC_Gateway_Mono_Hire_Purchase_Blocks );
 		}
 	);
