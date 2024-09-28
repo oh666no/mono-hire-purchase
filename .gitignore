@@ -31,3 +31,4 @@ yarn.lock
 # Ignore backup files
 *.po~
 *.pot~
+feedback.md
