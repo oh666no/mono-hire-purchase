@@ -5,7 +5,7 @@ Plugin Name: Monobank Hire Purchase Gateway
 Description: Adds a WooCommerce payment gateway for Monobank's installment system, enabling split payments with real-time status updates and order management.
 Plugin URI: https://pkotula.com/
 Author: pkotula
-Version: 1.0
+Version: 1.1
 Text Domain: monobank-hire-purchase-gateway
 Domain Path: /languages
 License: GPLv2
@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define plugin constants
 define( 'MONO_HIRE_PURCHASE_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'MONO_HIRE_PURCHASE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'MONO_HIRE_PURCHASE_VERSION', '1.1' );
 
 // Load plugin translations
 function mono_hire_purchase_load_textdomain() {
@@ -29,7 +30,7 @@ add_action( 'plugins_loaded', 'mono_hire_purchase_load_textdomain' );
 // Enqueue frontend styles
 function mono_hire_purchase_enqueue_frontend_styles() {
 	if ( ! is_admin() ) {
-		wp_enqueue_style( 'monobank-hire-purchase-gateway-frontend', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-frontend.css', array(), '1.0' );
+		wp_enqueue_style( 'monobank-hire-purchase-gateway-frontend', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-frontend.css', array(), MONO_HIRE_PURCHASE_VERSION );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'mono_hire_purchase_enqueue_frontend_styles' );
@@ -39,12 +40,12 @@ function mono_hire_purchase_enqueue_admin_assets( $hook_suffix ) {
 	error_log('Current hook suffix: ' . $hook_suffix);
 	if ( $hook_suffix == 'woocommerce_page_monobank-hire-purchase-gateway' ) {
 		wp_enqueue_media();
-		wp_enqueue_style( 'monobank-hire-purchase-gateway-settings', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-settings-page.css', array(), '1.0' );
+		wp_enqueue_style( 'monobank-hire-purchase-gateway-settings', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-settings-page.css', array(), MONO_HIRE_PURCHASE_VERSION );
 	}
 
-	wp_enqueue_script( 'mono-heartbeat-script', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/mono-heartbeat.js', array( 'heartbeat' ), '1.0', true );
-	wp_enqueue_style( 'monobank-hire-purchase-gateway-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-admin.css', array(), '1.0' );
-	wp_enqueue_script( 'monobank-hire-purchase-gateway-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/scripts-admin.js', array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'mono-heartbeat-script', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/mono-heartbeat.js', array( 'heartbeat' ), MONO_HIRE_PURCHASE_VERSION, true );
+	wp_enqueue_style( 'monobank-hire-purchase-gateway-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-admin.css', array(), MONO_HIRE_PURCHASE_VERSION );
+	wp_enqueue_script( 'monobank-hire-purchase-gateway-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/scripts-admin.js', array( 'jquery' ), MONO_HIRE_PURCHASE_VERSION, true );
 	wp_localize_script( 'monobank-hire-purchase-gateway-admin', 'adminScriptLocalizedText', array(
 		'selectImage' => __('Select Image', 'monobank-hire-purchase-gateway'),
 		'useImage' => __('Use this image', 'monobank-hire-purchase-gateway'),
