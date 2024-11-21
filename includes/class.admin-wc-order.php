@@ -151,6 +151,14 @@ class Mono_Hire_Purchase_Admin_Order {
 			. '>'
 			. esc_html__( 'Confirm Shipment', 'mono-hire-purchase' )
 			. '</button>';
+		
+		
+		echo '<div class="return-order-block">';
+		echo '<button id="return-order-button" class="button button-link-delete" ' . ( empty( $mono_pay_order_id ) ? 'disabled' : '' ) . '>' . esc_html__( 'Return Order', 'mono-hire-purchase' ) . '</button>';
+		echo '<label><input type="radio" id="return-order-radio" name="return-order-radio" value="TRUE">' . esc_html__( 'Bank refunds', 'mono-hire-purchase' ) . '</label>';
+		echo '<label><input type="radio" id="return-order-radio" name="return-order-radio" value="FALSE">' . esc_html__( 'Store refunds', 'mono-hire-purchase' ) . '</label>';
+		echo '</div>';
+		echo '<div class="return-order-error hide">' . esc_html__( 'Please select who will refund the money', 'mono-hire-purchase' ) . '</div>';
 		echo '<div class="order_status_updated hide"><span class="dashicons dashicons-info"></span>' . esc_html__('Order status has changed. Please reload the page to see the most recent data', 'mono-hire-purchase') . '<button id="reload" class="button button-secondary" >' . esc_html__('Reload', 'mono-hire-purchase'). '</button></div>';
 		echo '</div>';
 

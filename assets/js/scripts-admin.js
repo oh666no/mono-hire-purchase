@@ -9,10 +9,11 @@ jQuery(document).ready(function ($) {
         $('#confirm-shipment-button').prop('disabled', true);
     }
     // Helper function for making Ajax requests
-    function sendMonoAjaxRequest(action, orderID, nonce, successCallback) {
+    function sendMonoAjaxRequest(action, orderID, nonce, bankRefunds = true, successCallback) {
         var data = {
             action: action,
             order_id: orderID,
+            return_money_to_card: bankRefunds,
             security: nonce
         };
 
@@ -36,7 +37,7 @@ jQuery(document).ready(function ($) {
         var orderID = $('#mono-pay-order-id').val();
         var nonce = $('#mono_pay_order_nonce').val();
 
-        sendMonoAjaxRequest('process_mono_pay_order', orderID, nonce, function (response) {
+        sendMonoAjaxRequest('process_mono_pay_order', orderID, nonce, null, function (response) {
             $('#mono-pay-order-result').html(`Success: \n ${JSON.stringify(response.data.response, null, 4)}`).removeClass('loading');
             if (response.data.mono_pay_status === 'Created') {
                 $('.mono-pay-status-value').html(response.data.mono_pay_status);
@@ -54,7 +55,7 @@ jQuery(document).ready(function ($) {
         var orderID = $('#mono-pay-order-id').val();
         var nonce = $('#mono_pay_order_nonce').val();
 
-        sendMonoAjaxRequest('check_mono_order_status', orderID, nonce, function (response) {
+        sendMonoAjaxRequest('check_mono_order_status', orderID, nonce, null, function (response) {
             $('#mono-pay-order-result').html(`Success: \n ${JSON.stringify(response.data.response, null, 4)}`).removeClass('loading');
             $('.mono-order-state-value').html(response.data.state);
             $('.mono-order-sub-state-value').html(response.data.sub_state);
@@ -77,7 +78,7 @@ jQuery(document).ready(function ($) {
         var orderID = $('#mono-pay-order-id').val();
         var nonce = $('#mono_pay_order_nonce').val();
 
-        sendMonoAjaxRequest('reject_mono_order', orderID, nonce, function (response) {
+        sendMonoAjaxRequest('reject_mono_order', orderID, nonce, null, function (response) {
             $('#mono-pay-order-result').html(`Success: \n ${JSON.stringify(response.data.response, null, 4)}`).removeClass('loading');
             $('.mono-pay-status-value, .mono-pay-order-id-value').html('N/A');            
             $('.mono-order-state-value').html(response.data.state);
@@ -96,7 +97,7 @@ jQuery(document).ready(function ($) {
         var orderID = $('#mono-pay-order-id').val();
         var nonce = $('#mono_pay_order_nonce').val();
 
-        sendMonoAjaxRequest('confirm_mono_order_shipment', orderID, nonce, function (response) {
+        sendMonoAjaxRequest('confirm_mono_order_shipment', orderID, nonce, null, function (response) {
             if (response.success) {
                 $('#mono-pay-order-result').html('Success: Shipment confirmed successfully.').removeClass('loading');
                 $('#reject-mono-order-button').prop('disabled', true);
@@ -109,6 +110,31 @@ jQuery(document).ready(function ($) {
                 $('#mono-pay-order-result').html('Error: ' + response.data.message).removeClass('loading');
             }
         });
+    });
+
+    $('#return-order-button').on('click', function (e) {
+        e.preventDefault();
+        if (!$("#return-order-radio:checked").length) {
+            $(".return-order-error").removeClass("hide");
+            return;
+        } else {
+            $(".return-order-error").addClass("hide");
+            var orderID = $('#mono-pay-order-id').val();
+            var nonce = $('#mono_pay_order_nonce').val();
+            var bankRefunds = $("#return-order-radio:checked").val();
+
+            sendMonoAjaxRequest('return_mono_order', orderID, nonce, bankRefunds, function (response) {
+                console.log( response );
+                if (response.success) {
+                    $('#mono-pay-order-result').html(`Success: \n ${JSON.stringify(response.data, null, 4)}`).removeClass('loading');
+                    if (true === response.data.order_status_updated) {
+                        $(".order_status_updated").removeClass("hide");
+                    }
+                } else {
+                    $('#mono-pay-order-result').html('Error: ' + response.data.message).removeClass('loading');
+                }
+            });
+        }
     });
 
     $('#reload').on('click', function () {

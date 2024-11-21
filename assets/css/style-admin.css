@@ -36,8 +36,10 @@ p.mono-error {
     margin-right: 2ch;
 }
 .mono-pay-buttons{
-    display: block;
+    display: flex;
     align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 .hide {
     display: none !important;
@@ -57,6 +59,7 @@ p.mono-error {
     display: flex;
     gap: 10px;
     align-items: center;
+    flex-basis: 100%;
 }
 #mono-pay-order-result.loading:after {
     content: '';
@@ -105,7 +108,19 @@ p.mono-error {
         opacity: 1;
     }
 }
-
+.return-order-block{
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+.return-order-error{
+    margin: 0;
+    border-left: 5px solid red;
+    padding: 10px;
+}
 /* todo finish styilang different states of application*/
 /* .mono-hire-purchase-data h3:after {
     font-family: dashicons;

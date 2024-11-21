@@ -45,6 +45,8 @@ class Mono_Hire_Purchase_API {
 		add_action( 'wp_ajax_nopriv_confirm_mono_order_shipment', array( $this, 'confirm_mono_order_shipment_ajax' ) );
 		add_action( 'admin_footer', array( $this, 'enable_heartbeat_on_orders_page' ) );
 		add_action( 'heartbeat_received', array( $this, 'check_mono_order_status_heartbeat' ), 10, 2 );
+		add_action( 'wp_ajax_return_mono_order', array( $this, 'return_mono_order_ajax' ) );
+		add_action( 'wp_ajax_nopriv_return_mono_order', array( $this, 'return_mono_order_ajax' ) );
 	}
 	 public function check_mono_order_status_heartbeat( $response, $data ) {
         if ( isset( $data['mono_order_status'] ) ) {
@@ -742,6 +744,98 @@ class Mono_Hire_Purchase_API {
 
 		// Make the API call to confirm shipment
 		$response = wp_remote_post( $api_url . '/api/order/confirm', [ 
+			'method' => 'POST',
+			'body' => $request_string,
+			'headers' => [ 
+				'store-id' => $store_id,
+				'signature' => $signature,
+				'Content-Type' => 'application/json',
+				'Accept' => 'application/json'
+			]
+		] );
+
+		return $response;
+	}
+
+	public function return_mono_order_ajax() {
+		if ( ! isset( $_POST['order_id'] ) ) {
+			wp_send_json_error( array( 'message' => 'Missing order ID' ) );
+			return;
+		}
+
+		$order_id = intval( $_POST['order_id'] );
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			wp_send_json_error( array( 'message' => 'Invalid order ID' ) );
+			return;
+		}
+
+		// Retrieve the Mono Pay Order ID from the meta
+		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+			$mono_pay_order_id = $order->get_meta( '_mono_hire_purchase_order_id', true );
+		} else {
+			$mono_pay_order_id = get_post_meta( $order_id, '_mono_hire_purchase_order_id', true );
+		}
+
+		if ( empty( $mono_pay_order_id ) ) {
+			wp_send_json_error( array( 'message' => 'Mono Pay Order ID not found.' ) );
+			return;
+		}
+
+		// Call the function to return the order via the Mono Pay API
+		$response = $this->return_mono_order( $mono_pay_order_id, $order_id, $order->get_total() );
+
+		if ( is_wp_error( $response ) ) {
+			wp_send_json_error( array( 'message' => 'API request failed', 'error' => $response->get_error_message() ) );
+		} else {
+			$response_body = json_decode( $response['body'], true );
+
+			// Check if 'response' status is OK in the response
+			if ( isset( $response_body['status'] ) && 'OK' === $response_body['status'] ) {
+				// Update the order status or meta if needed
+				$order->update_status( 'refunded', esc_html__( 'Order returned and refunded via Mono Part Pay', 'mono-hire-purchase' ) );
+
+				// Update the shipment status to REFUNDED
+				if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
+					$order->update_meta_data( '_mono_order_confirm_shipment_status', 'REFUNDED' );
+					$order->save();
+				} else {
+					update_post_meta( $order_id, '_mono_order_confirm_shipment_status', 'REFUNDED' );
+				}
+
+				$order->save();
+			}
+
+			// Send success response with updated state
+			wp_send_json_success( array(
+				'message' => 'Order returned successfully',
+				'response' => $response_body,
+				'state' => $response_body['state'],
+				'order_status_updated' => true
+			) );
+		}
+	}
+
+	public function return_mono_order( $mono_pay_order_id, $order_id, $order_total ) {
+		$is_test_mode = get_option( 'mono_hire_purchase_test_mode', '0' ) === '1';
+		$api_url = $is_test_mode ? get_option( 'mono_hire_purchase_test_api_url' ) : get_option( 'mono_hire_purchase_api_url' );
+		$store_id = $is_test_mode ? get_option( 'mono_hire_purchase_test_store_id' ) : get_option( 'mono_hire_purchase_store_id' );
+		$sign_key = $is_test_mode ? get_option( 'mono_hire_purchase_test_sign_key' ) : get_option( 'mono_hire_purchase_sign_key' );
+
+		// Construct the request data
+		$request_data = [ 
+			'order_id' => $mono_pay_order_id,
+			'return_money_to_card' => true,
+			'store_return_id' => 'return_' . $order_id,
+			'sum' => $order_total,
+		];
+
+		$request_string = wp_json_encode( $request_data );
+		$signature = base64_encode( hash_hmac( 'sha256', $request_string, $sign_key, true ) );
+
+		// Make the API call to return the order
+		$response = wp_remote_post( $api_url . '/api/order/return', [ 
 			'method' => 'POST',
 			'body' => $request_string,
 			'headers' => [ 

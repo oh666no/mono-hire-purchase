@@ -361,7 +361,7 @@ class Mono_Hire_Purchase_Settings {
 		$option_name = $args['option_name'];
 		$value = get_option( $option_name );
 		echo '<input type="text" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $value ) . '" />';
-		echo '<p class="description">' . esc_html_e( 'Enter comma-separated numbers between 3 and 25.', 'mono-hire-purchase' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Enter comma-separated numbers between 3 and 25.', 'mono-hire-purchase' ) . '</p>';
 	}
 	public function checkbox_callback( $args ) {
 		$option_name = $args['option_name'];
