@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mono Pay-part 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-13 22:54+0000\n"
+"POT-Creation-Date: 2024-11-21 13:13+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: \n"
@@ -15,6 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE"
 
+#. Description of the plugin
+msgid ""
+"Adds a WooCommerce payment gateway for Monobank's installment system, "
+"enabling split payments with real-time status updates and order management."
+msgstr ""
+
 #: includes/class.admin-wc-order.php:111
 msgid "Application status"
 msgstr ""
@@ -25,6 +31,10 @@ msgstr ""
 
 #: includes/class.settings.php:160
 msgid "Available Parts"
+msgstr ""
+
+#: includes/class.admin-wc-order.php:158
+msgid "Bank refunds"
 msgstr ""
 
 #: includes/class.admin-wc-order.php:134
@@ -47,11 +57,11 @@ msgstr ""
 msgid "Enable Test Mode"
 msgstr ""
 
-#: includes/class.settings.php:365
+#: includes/class.settings.php:364
 msgid "Enter comma-separated numbers between 3 and 25."
 msgstr ""
 
-#: includes/class.settings.php:273
+#: includes/class.settings.php:272
 msgid ""
 "For more information about the Mono Hire Purchase API, please refer to the "
 "official documentation."
@@ -89,11 +99,11 @@ msgstr ""
 msgid "Mono Part Pay Banner"
 msgstr ""
 
-#: includes/class.mono-api.php:643
+#: includes/class.mono-api.php:717
 msgid "Mono Part Pay finished. Shipment confirmed by shop admin"
 msgstr ""
 
-#: includes/class.mono-api.php:541
+#: includes/class.mono-api.php:615
 msgid "Mono Part Pay method cancelled by shop admin"
 msgstr ""
 
@@ -101,11 +111,11 @@ msgstr ""
 msgid "Mono Part Pay Order"
 msgstr ""
 
-#: includes/class.mono-api.php:177
+#: includes/class.mono-api.php:254
 msgid "Mono Part Pay payment Approved by Bank"
 msgstr ""
 
-#: includes/class.mono-api.php:179
+#: includes/class.mono-api.php:256
 msgid "Mono Part Pay payment Failed. Reason: "
 msgstr ""
 
@@ -121,11 +131,19 @@ msgstr ""
 msgid "Monobank Hire Purchase Gateway"
 msgstr ""
 
+#: monobank-hire-purchase.php:93
+msgid "Monobank Hire Purchase Gateway requires WooCommerce to be active."
+msgstr ""
+
 #: includes/class.settings.php:245
 msgid "Only numbers between 3 and 25 are allowed. These values were rejected: "
 msgstr ""
 
-#: includes/class.admin-wc-order.php:154
+#: includes/class.mono-api.php:797
+msgid "Order returned and refunded via Mono Part Pay"
+msgstr ""
+
+#: includes/class.admin-wc-order.php:162
 msgid ""
 "Order status has changed. Please reload the page to see the most recent data"
 msgstr ""
@@ -136,6 +154,10 @@ msgstr ""
 
 #. Author of the plugin
 msgid "pkotula"
+msgstr ""
+
+#: includes/class.admin-wc-order.php:161
+msgid "Please select who will refund the money"
 msgstr ""
 
 #: includes/class.settings.php:147
@@ -154,7 +176,7 @@ msgstr ""
 msgid "Reject Mono Order"
 msgstr ""
 
-#: includes/class.admin-wc-order.php:154
+#: includes/class.admin-wc-order.php:162
 msgid "Reload"
 msgstr ""
 
@@ -162,11 +184,11 @@ msgstr ""
 msgid "Remove Image"
 msgstr ""
 
-#: woo-monobank-hire-purchase.php:92
-msgid "Restare Mono Pay-part requires WooCommerce to be active."
+#: includes/class.admin-wc-order.php:157
+msgid "Return Order"
 msgstr ""
 
-#: includes/class.settings.php:325
+#: includes/class.settings.php:324
 msgid "Select Image"
 msgstr ""
 
@@ -186,8 +208,12 @@ msgstr ""
 msgid "Shipment status"
 msgstr ""
 
-#: woo-monobank-hire-purchase.php:46
+#: monobank-hire-purchase.php:48
 msgid "Shortcode copied to clipboard!"
+msgstr ""
+
+#: includes/class.admin-wc-order.php:159
+msgid "Store refunds"
 msgstr ""
 
 #: includes/class.settings.php:106
@@ -202,26 +228,19 @@ msgstr ""
 msgid "Test Store ID"
 msgstr ""
 
-#. Description of the plugin
-msgid ""
-"The Mono Pay-Part plugin adds a WooCommerce payment gateway that integrates "
-"Mono Bank’s installment system, enabling customers to split payments while "
-"providing real-time payment status updates and order management."
-msgstr ""
-
 #: includes/class.settings.php:180
 msgid "This logo is displayed on a checkout page."
 msgstr ""
 
-#: includes/class.mono-api.php:181
+#: includes/class.mono-api.php:258
 msgid "Unknown payment status via Mono Part Pay."
 msgstr ""
 
-#: includes/class.settings.php:327
+#: includes/class.settings.php:326
 msgid "Use this image"
 msgstr ""
 
-#: includes/class.settings.php:276
+#: includes/class.settings.php:275
 msgid "View Documentation"
 msgstr ""
 
