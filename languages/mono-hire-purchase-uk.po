@@ -13,7 +13,7 @@ msgstr ""
 "X-Domain: restare-mono-pay-part\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
 "n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
-"PO-Revision-Date: 2024-11-21 13:15+0000\n"
+"PO-Revision-Date: 2024-11-21 14:11+0000\n"
 "X-Loco-Version: 2.6.11; wp-6.6.2"
 
 #. Description of the plugin
@@ -21,9 +21,13 @@ msgid ""
 "Adds a WooCommerce payment gateway for Monobank's installment system, "
 "enabling split payments with real-time status updates and order management."
 msgstr ""
-"Додає платіжний шлюз WooCommerce для системи розстрочки Monobank, що "
+"Додає платіжний шлюз WooCommerce для \"Покупки частинами\" Monobank, що "
 "дозволяє здійснювати поділ платежів із оновленням статусу в реальному часі "
 "та керуванням замовленнями."
+
+#: includes/class.hire-purchase-method.php:20
+msgid "Allows customers to pay using Mono Hire Purchase Method."
+msgstr "Дозволяє клієнтам оплачувати за допомогою \"Покупки частинами\" Mono."
 
 #: includes/class.admin-wc-order.php:111
 msgid "Application status"
@@ -36,6 +40,10 @@ msgstr "Подача заявки"
 #: includes/class.settings.php:160
 msgid "Available Parts"
 msgstr "Доступна кількість платежів"
+
+#: includes/class.hire-purchase-method.php:111
+msgid "Awaiting Mono Hire Purchase payment acceptance"
+msgstr "Очікується підтвердження оплати \"Покупки частинами\" Mono."
 
 #: includes/class.admin-wc-order.php:158
 msgid "Bank refunds"
@@ -53,6 +61,18 @@ msgstr "Виберіть зображення"
 msgid "Confirm Shipment"
 msgstr "Підтвердити видачу товару клієнтові"
 
+#: includes/class.hire-purchase-method.php:54
+msgid "Description"
+msgstr "Опис"
+
+#: includes/class.hire-purchase-method.php:75
+msgid "Desired payments number"
+msgstr "Бажана кількість платежів"
+
+#: includes/class.hire-purchase-method.php:43
+msgid "Enable Mono Hire Purchase Method"
+msgstr "Увімкнути метод \"Покупки частинами\" Mono"
+
 #: includes/class.settings.php:52
 msgid "Enable Part Pay Method"
 msgstr "Активувати платіжний метод"
@@ -60,6 +80,10 @@ msgstr "Активувати платіжний метод"
 #: includes/class.settings.php:65
 msgid "Enable Test Mode"
 msgstr "Активувати тестовий режим"
+
+#: includes/class.hire-purchase-method.php:41
+msgid "Enable/Disable"
+msgstr "Увімкнути/Вимкнути"
 
 #: includes/class.settings.php:364
 msgid "Enter comma-separated numbers between 3 and 25."
@@ -81,6 +105,11 @@ msgstr "https://pkotula.com/"
 #: includes/class.settings.php:20
 msgid "Mono Hire Purchase"
 msgstr "Покупка частинами монобанк"
+
+#: includes/class.hire-purchase-method.php:19
+#: includes/class.hire-purchase-method.php:50
+msgid "Mono Hire Purchase Method"
+msgstr "\"Покупка частинами\" Mono"
 
 #: includes/class.settings.php:19 includes/class.settings.php:261
 msgid "Mono Hire Purchase Settings"
@@ -141,7 +170,17 @@ msgstr ""
 
 #: monobank-hire-purchase.php:93
 msgid "Monobank Hire Purchase Gateway requires WooCommerce to be active."
-msgstr "Шлюз розстрочки Monobank вимагає активного WooCommerce."
+msgstr "Шлюз \"Покупки частинами\" Monobank вимагає активного WooCommerce."
+
+#. %s: Number of payments
+#: includes/class.hire-purchase-method.php:84
+#, php-format
+msgctxt "Number of payments"
+msgid "%s payment"
+msgid_plural "%s payments"
+msgstr[0] "%s платіж"
+msgstr[1] "%s платежі"
+msgstr[2] "%s платежів"
 
 #: includes/class.settings.php:245
 msgid "Only numbers between 3 and 25 are allowed. These values were rejected: "
@@ -157,6 +196,10 @@ msgid ""
 msgstr ""
 "Статус замовлення змінився. Перезавантажте сторінку щоб побачити "
 "найактувальніші дані"
+
+#: includes/class.hire-purchase-method.php:57
+msgid "Pay using Mono Hire Purchase Method."
+msgstr "Оплатити за допомогою \"Покупки частинами\" Mono."
 
 #: includes/class.settings.php:173
 msgid "Payment Method Logo"
@@ -238,9 +281,23 @@ msgstr "Тестовий Sign Key"
 msgid "Test Store ID"
 msgstr "Тестовий Store ID"
 
+#: includes/class.hire-purchase-method.php:56
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+"Це визначає опис, який користувач бачить під час оформлення замовлення."
+
+#: includes/class.hire-purchase-method.php:49
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+"Це визначає заголовок, який користувач бачить під час оформлення замовлення."
+
 #: includes/class.settings.php:180
 msgid "This logo is displayed on a checkout page."
 msgstr "Логотип який відображається при оформленні замовлення"
+
+#: includes/class.hire-purchase-method.php:47
+msgid "Title"
+msgstr "Назва"
 
 #: includes/class.mono-api.php:258
 msgid "Unknown payment status via Mono Part Pay."

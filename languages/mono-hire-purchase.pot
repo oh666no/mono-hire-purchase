@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mono Pay-part 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-21 13:13+0000\n"
+"POT-Creation-Date: 2024-11-21 14:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: \n"
@@ -21,6 +21,10 @@ msgid ""
 "enabling split payments with real-time status updates and order management."
 msgstr ""
 
+#: includes/class.hire-purchase-method.php:20
+msgid "Allows customers to pay using Mono Hire Purchase Method."
+msgstr ""
+
 #: includes/class.admin-wc-order.php:111
 msgid "Application status"
 msgstr ""
@@ -31,6 +35,10 @@ msgstr ""
 
 #: includes/class.settings.php:160
 msgid "Available Parts"
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:111
+msgid "Awaiting Mono Hire Purchase payment acceptance"
 msgstr ""
 
 #: includes/class.admin-wc-order.php:158
@@ -49,12 +57,28 @@ msgstr ""
 msgid "Confirm Shipment"
 msgstr ""
 
+#: includes/class.hire-purchase-method.php:54
+msgid "Description"
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:75
+msgid "Desired payments number"
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:43
+msgid "Enable Mono Hire Purchase Method"
+msgstr ""
+
 #: includes/class.settings.php:52
 msgid "Enable Part Pay Method"
 msgstr ""
 
 #: includes/class.settings.php:65
 msgid "Enable Test Mode"
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:41
+msgid "Enable/Disable"
 msgstr ""
 
 #: includes/class.settings.php:364
@@ -73,6 +97,11 @@ msgstr ""
 
 #: includes/class.settings.php:20
 msgid "Mono Hire Purchase"
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:19
+#: includes/class.hire-purchase-method.php:50
+msgid "Mono Hire Purchase Method"
 msgstr ""
 
 #: includes/class.settings.php:19 includes/class.settings.php:261
@@ -135,6 +164,15 @@ msgstr ""
 msgid "Monobank Hire Purchase Gateway requires WooCommerce to be active."
 msgstr ""
 
+#. %s: Number of payments
+#: includes/class.hire-purchase-method.php:84
+#, php-format
+msgctxt "Number of payments"
+msgid "%s payment"
+msgid_plural "%s payments"
+msgstr[0] ""
+msgstr[1] ""
+
 #: includes/class.settings.php:245
 msgid "Only numbers between 3 and 25 are allowed. These values were rejected: "
 msgstr ""
@@ -146,6 +184,10 @@ msgstr ""
 #: includes/class.admin-wc-order.php:162
 msgid ""
 "Order status has changed. Please reload the page to see the most recent data"
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:57
+msgid "Pay using Mono Hire Purchase Method."
 msgstr ""
 
 #: includes/class.settings.php:173
@@ -228,8 +270,20 @@ msgstr ""
 msgid "Test Store ID"
 msgstr ""
 
+#: includes/class.hire-purchase-method.php:56
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:49
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
 #: includes/class.settings.php:180
 msgid "This logo is displayed on a checkout page."
+msgstr ""
+
+#: includes/class.hire-purchase-method.php:47
+msgid "Title"
 msgstr ""
 
 #: includes/class.mono-api.php:258
