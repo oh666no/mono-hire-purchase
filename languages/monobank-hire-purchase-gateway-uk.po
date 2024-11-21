@@ -1,0 +1,318 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Restare Mono Pay-part 1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/monobank-hire-"
+"purchase-for-woo\n"
+"POT-Creation-Date: 2024-11-21T15:57:34+00:00\n"
+"PO-Revision-Date: 2024-11-21 18:05+0200\n"
+"Last-Translator: \n"
+"Language-Team: Українська\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && "
+"n%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Generator: Poedit 3.5\n"
+"X-Domain: restare-mono-pay-part\n"
+"X-Loco-Version: 2.6.11; wp-6.6.2\n"
+
+#. Plugin Name of the plugin
+msgid "Monobank Hire Purchase Gateway"
+msgstr "Платіжний метод \"Покупка частинами монобанк\""
+
+#. Plugin URI of the plugin
+msgid "https://pkotula.com/"
+msgstr "https://pkotula.com/"
+
+#. Description of the plugin
+msgid ""
+"Adds a WooCommerce payment gateway for Monobank's installment system, "
+"enabling split payments with real-time status updates and order management."
+msgstr ""
+"Додає платіжний шлюз WooCommerce для \"Покупки частинами\" Monobank, що "
+"дозволяє здійснювати поділ платежів із оновленням статусу в реальному часі "
+"та керуванням замовленнями."
+
+#. Author of the plugin
+msgid "pkotula"
+msgstr "pkotula"
+
+#: includes/class.admin-wc-order.php:36 includes/class.admin-wc-order.php:54
+msgid "Mono Part Pay"
+msgstr "Покупка частинами. Моно"
+
+#: includes/class.admin-wc-order.php:69
+msgid "Mono Part Pay Order"
+msgstr "Заявка на \"Покупку частинами\""
+
+#: includes/class.admin-wc-order.php:99
+msgid "Application sumbission"
+msgstr "Подача заявки"
+
+#: includes/class.admin-wc-order.php:100
+msgid "Selected number of payments:"
+msgstr "Обрана кількість платежів:"
+
+#: includes/class.admin-wc-order.php:103
+msgid "Mono Pay Status:"
+msgstr "Статус заявки:"
+
+#: includes/class.admin-wc-order.php:106
+msgid "Mono Pay Order ID:"
+msgstr "ID заявки:"
+
+#: includes/class.admin-wc-order.php:111
+msgid "Application status"
+msgstr "Статус заявки"
+
+#: includes/class.admin-wc-order.php:112
+msgid "Mono Order State:"
+msgstr "Відповідь банку:"
+
+#: includes/class.admin-wc-order.php:115
+msgid "Mono Order Sub-state:"
+msgstr "Причина:"
+
+#: includes/class.admin-wc-order.php:120
+msgid "Shipment status"
+msgstr "Статус видачі клієнту"
+
+#: includes/class.admin-wc-order.php:121
+msgid "Mono Order Shipment Status:"
+msgstr "Статус видачі клієнту:"
+
+#: includes/class.admin-wc-order.php:131
+msgid "Send Order to Mono Pay"
+msgstr "Надіслати заявку"
+
+#: includes/class.admin-wc-order.php:134
+msgid "Check Mono Order Status"
+msgstr "Перевірити статус заявки"
+
+#: includes/class.admin-wc-order.php:142
+msgid "Reject Mono Order"
+msgstr "Скасувати заявку на \"Покупку частинами\""
+
+#: includes/class.admin-wc-order.php:152
+msgid "Confirm Shipment"
+msgstr "Підтвердити видачу товару клієнтові"
+
+#: includes/class.admin-wc-order.php:157
+msgid "Return Order"
+msgstr "Повернути замовлення"
+
+#: includes/class.admin-wc-order.php:158
+msgid "Bank refunds"
+msgstr "Банк повертає"
+
+#: includes/class.admin-wc-order.php:159
+msgid "Store refunds"
+msgstr "Магазин повертає"
+
+#: includes/class.admin-wc-order.php:161
+msgid "Please select who will refund the money"
+msgstr "Будь ласка, виберіть, хто буде повертати кошти"
+
+#: includes/class.admin-wc-order.php:162
+msgid ""
+"Order status has changed. Please reload the page to see the most recent data"
+msgstr ""
+"Статус замовлення змінився. Перезавантажте сторінку щоб побачити "
+"найактувальніші дані"
+
+#: includes/class.admin-wc-order.php:162
+msgid "Reload"
+msgstr "Перезавантажити"
+
+#: includes/class.hire-purchase-method.php:19
+#: includes/class.hire-purchase-method.php:50
+msgid "Mono Hire Purchase Method"
+msgstr "\"Покупка частинами\" Mono"
+
+#: includes/class.hire-purchase-method.php:20
+msgid "Allows customers to pay using Mono Hire Purchase Method."
+msgstr "Дозволяє клієнтам оплачувати за допомогою \"Покупки частинами\" Mono."
+
+#: includes/class.hire-purchase-method.php:41
+msgid "Enable/Disable"
+msgstr "Увімкнути/Вимкнути"
+
+#: includes/class.hire-purchase-method.php:43
+msgid "Enable Mono Hire Purchase Method"
+msgstr "Увімкнути метод \"Покупки частинами\" Mono"
+
+#: includes/class.hire-purchase-method.php:47
+msgid "Title"
+msgstr "Назва"
+
+#: includes/class.hire-purchase-method.php:49
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+"Це визначає заголовок, який користувач бачить під час оформлення замовлення."
+
+#: includes/class.hire-purchase-method.php:54
+msgid "Description"
+msgstr "Опис"
+
+#: includes/class.hire-purchase-method.php:56
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+"Це визначає опис, який користувач бачить під час оформлення замовлення."
+
+#: includes/class.hire-purchase-method.php:57
+msgid "Pay using Mono Hire Purchase Method."
+msgstr "Оплатити за допомогою \"Покупки частинами\" Mono."
+
+#: includes/class.hire-purchase-method.php:75
+msgid "Desired payments number"
+msgstr "Бажана кількість платежів"
+
+#. translators: %s: Number of payments
+#: includes/class.hire-purchase-method.php:84
+msgctxt "Number of payments"
+msgid "%s payment"
+msgid_plural "%s payments"
+msgstr[0] "%s платіж"
+msgstr[1] "%s платежі"
+msgstr[2] "%s платежів"
+
+#: includes/class.hire-purchase-method.php:111
+msgid "Awaiting Mono Hire Purchase payment acceptance"
+msgstr "Очікується підтвердження оплати \"Покупки частинами\" Mono"
+
+#: includes/class.mono-api.php:254
+msgid "Mono Part Pay payment Approved by Bank"
+msgstr "Покупка частинами зітверджена банком"
+
+#: includes/class.mono-api.php:256
+msgid "Mono Part Pay payment Failed. Reason: "
+msgstr "Покупка частинами не вдалась. Причина: "
+
+#: includes/class.mono-api.php:258
+msgid "Unknown payment status via Mono Part Pay."
+msgstr "Статус заяки на \"Покупку частинами\" невідомий."
+
+#: includes/class.mono-api.php:615
+msgid "Mono Part Pay method cancelled by shop admin"
+msgstr "Покупка частинами скасована менеджером магазину"
+
+#: includes/class.mono-api.php:717
+msgid "Mono Part Pay finished. Shipment confirmed by shop admin"
+msgstr "Покупка Частинами завершена. Видача клієнту підтверджена"
+
+#: includes/class.mono-api.php:797
+msgid "Order returned and refunded via Mono Part Pay"
+msgstr "Замовлення повернуто та відшкодовано через Mono Part Pay"
+
+#: includes/class.settings.php:19 includes/class.settings.php:261
+msgid "Mono Hire Purchase Settings"
+msgstr "Налаштування покупки частинами монобанк"
+
+#: includes/class.settings.php:20
+msgid "Mono Hire Purchase"
+msgstr "Покупка частинами монобанк"
+
+#: includes/class.settings.php:44
+msgid "Settings"
+msgstr "Налаштування"
+
+#: includes/class.settings.php:52
+msgid "Enable Part Pay Method"
+msgstr "Активувати платіжний метод"
+
+#: includes/class.settings.php:65
+msgid "Enable Test Mode"
+msgstr "Активувати тестовий режим"
+
+#: includes/class.settings.php:78
+msgid "Test Store ID"
+msgstr "Тестовий Store ID"
+
+#: includes/class.settings.php:92
+msgid "Test Sign Key"
+msgstr "Тестовий Sign Key"
+
+#: includes/class.settings.php:106
+msgid "Test API URL"
+msgstr "Тестовий API URL"
+
+#: includes/class.settings.php:119
+msgid "Production Store ID"
+msgstr "Бойовий Store ID"
+
+#: includes/class.settings.php:133
+msgid "Production Sign Key"
+msgstr "Бойовий Sign Key"
+
+#: includes/class.settings.php:147
+msgid "Production API URL"
+msgstr "Бойовий API URL"
+
+#: includes/class.settings.php:160
+msgid "Available Parts"
+msgstr "Доступна кількість платежів"
+
+#: includes/class.settings.php:173
+msgid "Payment Method Logo"
+msgstr "Лого платіжного методу"
+
+#: includes/class.settings.php:180
+msgid "This logo is displayed on a checkout page."
+msgstr "Логотип який відображається при оформленні замовлення."
+
+#: includes/class.settings.php:187
+msgid "Mono Part Pay Banner"
+msgstr "Банер для \"Покупки частинами\""
+
+#: includes/class.settings.php:194
+msgid ""
+"You can place this banner anywhere using <code>[mono_hire_purchase_banner]</"
+"code> shortcode"
+msgstr ""
+"Ви можете вивести даний банер будь-де за допомогою "
+"<code>[mono_hire_purchase_banner]</code> шорткоду"
+
+#: includes/class.settings.php:210
+msgid "Choose Image"
+msgstr "Виберіть зображення"
+
+#: includes/class.settings.php:212
+msgid "Remove Image"
+msgstr "Видалити зображення"
+
+#: includes/class.settings.php:245
+msgid "Only numbers between 3 and 25 are allowed. These values were rejected: "
+msgstr ""
+"Допускаються лише числа від 3 до 25. Наступні значення було відхилено: "
+
+#: includes/class.settings.php:272
+msgid ""
+"For more information about the Mono Hire Purchase API, please refer to the "
+"official documentation."
+msgstr ""
+"Для більш детальної інформації – ознайомтесь із офіційною доументацією."
+
+#: includes/class.settings.php:275
+msgid "View Documentation"
+msgstr "Перейти до документації"
+
+#: includes/class.settings.php:285
+msgid "Enter comma-separated numbers between 3 and 25."
+msgstr "Введіть перелік кількості платежів через кому від 3 до 25."
+
+#: monobank-hire-purchase-gateway.php:49
+msgid "Select Image"
+msgstr "Оберіть зображення"
+
+#: monobank-hire-purchase-gateway.php:50
+msgid "Use this image"
+msgstr "Використати дане зображення"
+
+#: monobank-hire-purchase-gateway.php:51
+msgid "Shortcode copied to clipboard!"
+msgstr "Шорткод скопійовано в буфер обміну!"
+
+#: monobank-hire-purchase-gateway.php:96
+msgid "Monobank Hire Purchase Gateway requires WooCommerce to be active."
+msgstr "Шлюз \"Покупки частинами\" Monobank вимагає активного WooCommerce."

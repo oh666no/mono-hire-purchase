@@ -251,11 +251,11 @@ class Mono_Hire_Purchase_API {
 				] );
 
 				if ( $request_data['state'] === 'SUCCESS' ) {
-					$order->update_status( 'processing', esc_html__( 'Mono Part Pay payment Approved by Bank', 'mono-hire-purchase' ) );
+					$order->update_status( 'processing', esc_html__( 'Mono Part Pay payment Approved by Bank', 'monobank-hire-purchase-gateway' ) );
 				} elseif ( $request_data['state'] === 'FAIL' ) {
-					$order->update_status( 'failed', esc_html__( 'Mono Part Pay payment Failed. Reason: ', 'mono-hire-purchase' ) . esc_html( $request_data['order_sub_state'] ) );
+					$order->update_status( 'failed', esc_html__( 'Mono Part Pay payment Failed. Reason: ', 'monobank-hire-purchase-gateway' ) . esc_html( $request_data['order_sub_state'] ) );
 				} else {
-					$order->update_status( 'on-hold', esc_html__( 'Unknown payment status via Mono Part Pay.', 'mono-hire-purchase' ) );
+					$order->update_status( 'on-hold', esc_html__( 'Unknown payment status via Mono Part Pay.', 'monobank-hire-purchase-gateway' ) );
 				}
 				$order->save();
 			}
@@ -612,7 +612,7 @@ class Mono_Hire_Purchase_API {
 					delete_post_meta( $order_id, '_mono_hire_purchase_status' );
 					delete_post_meta( $order_id, '_mono_order_confirm_shipment_status' );
 				}
-				$order->update_status( 'cancelled', esc_html__( 'Mono Part Pay method cancelled by shop admin', 'mono-hire-purchase' ) );
+				$order->update_status( 'cancelled', esc_html__( 'Mono Part Pay method cancelled by shop admin', 'monobank-hire-purchase-gateway' ) );
 				$order->save();
 
 				// Return a success response after the meta fields are removed
@@ -714,7 +714,7 @@ class Mono_Hire_Purchase_API {
 					update_post_meta( $order_id, '_mono_order_confirm_shipment_status', $shipment_status );
 				}
 
-				$order->update_status( 'completed', esc_html__( 'Mono Part Pay finished. Shipment confirmed by shop admin', 'mono-hire-purchase' ) );
+				$order->update_status( 'completed', esc_html__( 'Mono Part Pay finished. Shipment confirmed by shop admin', 'monobank-hire-purchase-gateway' ) );
 				$order->save();
 			}
 
@@ -794,7 +794,7 @@ class Mono_Hire_Purchase_API {
 			// Check if 'response' status is OK in the response
 			if ( isset( $response_body['status'] ) && 'OK' === $response_body['status'] ) {
 				// Update the order status or meta if needed
-				$order->update_status( 'refunded', esc_html__( 'Order returned and refunded via Mono Part Pay', 'mono-hire-purchase' ) );
+				$order->update_status( 'refunded', esc_html__( 'Order returned and refunded via Mono Part Pay', 'monobank-hire-purchase-gateway' ) );
 
 				// Update the shipment status to REFUNDED
 				if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {

@@ -3,6 +3,6 @@
     "@wordpress/scripts": "^26.12.0"
   },
   "scripts": {
-    "build": "wp-scripts build assets/js/mono-hire-purchase-blocks.js"
+    "build": "wp-scripts build assets/js/monobank-hire-purchase-gateway-blocks.js"
   }
 }

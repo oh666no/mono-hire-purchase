@@ -14,14 +14,14 @@
     display: none;
 }
 
-.mono-hire-purchase-data {
+.monobank-hire-purchase-gateway-data {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
     margin-bottom: 30px;
 }
 @media screen and (min-width: 1921px){
-    .mono-hire-purchase-data{
+    .monobank-hire-purchase-gateway-data{
         max-width: 77%;
     }
 }
@@ -77,7 +77,7 @@ p.mono-error {
     color: #144e0f;
 }
 
-.mono-hire-purchase-data h3 {
+.monobank-hire-purchase-gateway-data h3 {
     color: #aaa;
     display: flex;
     gap: 1ch;
@@ -85,14 +85,14 @@ p.mono-error {
     align-items: center;
 }
 
-.mono-hire-purchase-data p {
+.monobank-hire-purchase-gateway-data p {
     font-weight: bold;
     display: flex;
     justify-content: space-between;
     gap: 20px;
 }
 
-.mono-hire-purchase-data p span {
+.monobank-hire-purchase-gateway-data p span {
     font-weight: normal;
 }
 @keyframes blink {
@@ -122,19 +122,19 @@ p.mono-error {
     padding: 10px;
 }
 /* todo finish styilang different states of application*/
-/* .mono-hire-purchase-data h3:after {
+/* .monobank-hire-purchase-gateway-data h3:after {
     font-family: dashicons;
     font-size: 1.5em;
     content: "\f321";
     color: #aaa;
 }
 
-.mono-hire-purchase-data h3.success:after {
+.monobank-hire-purchase-gateway-data h3.success:after {
     content: "\f147";
     color: #34BD26;
 }
 
-.mono-hire-purchase-data h3.fail:after {
+.monobank-hire-purchase-gateway-data h3.fail:after {
     content: "\f335";
     color: red;
 } */

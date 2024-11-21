@@ -6,7 +6,7 @@ Description: Adds a WooCommerce payment gateway for Monobank's installment syste
 Plugin URI: https://pkotula.com/
 Author: pkotula
 Version: 1.0
-Text Domain: mono-hire-purchase
+Text Domain: monobank-hire-purchase-gateway
 Domain Path: /languages
 License: GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -22,32 +22,33 @@ define( 'MONO_HIRE_PURCHASE_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 // Load plugin translations
 function mono_hire_purchase_load_textdomain() {
-	load_plugin_textdomain( 'mono-hire-purchase', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'monobank-hire-purchase-gateway', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'mono_hire_purchase_load_textdomain' );
 
 // Enqueue frontend styles
 function mono_hire_purchase_enqueue_frontend_styles() {
 	if ( ! is_admin() ) {
-		wp_enqueue_style( 'mono-hire-purchase-frontend', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-frontend.css', array(), '1.0' );
+		wp_enqueue_style( 'monobank-hire-purchase-gateway-frontend', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-frontend.css', array(), '1.0' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'mono_hire_purchase_enqueue_frontend_styles' );
 
 // Enqueue admin styles and scripts
 function mono_hire_purchase_enqueue_admin_assets( $hook_suffix ) {
-	if ( $hook_suffix == 'woocommerce_page_mono-hire-purchase' ) {
+	error_log('Current hook suffix: ' . $hook_suffix);
+	if ( $hook_suffix == 'woocommerce_page_monobank-hire-purchase-gateway' ) {
 		wp_enqueue_media();
-		wp_enqueue_style( 'mono-hire-purchase-settings', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-settings-page.css', array(), '1.0' );
+		wp_enqueue_style( 'monobank-hire-purchase-gateway-settings', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-settings-page.css', array(), '1.0' );
 	}
 
 	wp_enqueue_script( 'mono-heartbeat-script', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/mono-heartbeat.js', array( 'heartbeat' ), '1.0', true );
-	wp_enqueue_style( 'mono-hire-purchase-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-admin.css', array(), '1.0' );
-	wp_enqueue_script( 'mono-hire-purchase-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/scripts-admin.js', array( 'jquery' ), '1.0', true );
-	wp_localize_script( 'mono-hire-purchase-admin', 'adminScriptLocalizedText', array(
-		'selectImage' => __('Select Image', 'mono-hire-purchase'),
-		'useImage' => __('Use this image', 'mono-hire-purchase'),
-		'copySuccess' => __( 'Shortcode copied to clipboard!', 'mono-hire-purchase' )
+	wp_enqueue_style( 'monobank-hire-purchase-gateway-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-admin.css', array(), '1.0' );
+	wp_enqueue_script( 'monobank-hire-purchase-gateway-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/scripts-admin.js', array( 'jquery' ), '1.0', true );
+	wp_localize_script( 'monobank-hire-purchase-gateway-admin', 'adminScriptLocalizedText', array(
+		'selectImage' => __('Select Image', 'monobank-hire-purchase-gateway'),
+		'useImage' => __('Use this image', 'monobank-hire-purchase-gateway'),
+		'copySuccess' => __( 'Shortcode copied to clipboard!', 'monobank-hire-purchase-gateway' )
 	) );
 }
 add_action( 'admin_enqueue_scripts', 'mono_hire_purchase_enqueue_admin_assets' );
@@ -92,7 +93,7 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	function mono_hire_purchase_woocommerce_notice() {
 		?>
 		<div class="notice notice-error">
-			<p><?php esc_html_e( 'Monobank Hire Purchase Gateway requires WooCommerce to be active.', 'mono-hire-purchase' ); ?></p>
+			<p><?php esc_html_e( 'Monobank Hire Purchase Gateway requires WooCommerce to be active.', 'monobank-hire-purchase-gateway' ); ?></p>
 		</div>
 		<?php
 	}
