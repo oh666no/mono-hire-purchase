@@ -16,8 +16,8 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 		$payment_logo_url = get_option( 'mono_hire_purchase_payment_logo' );
 		$this->icon = ! empty( $payment_logo_url ) ? esc_url( $payment_logo_url ) : MONO_HIRE_PURCHASE_PLUGIN_URL . '/assets/images/default-logo.svg';
 		$this->has_fields = true; // We are adding custom fields
-		$this->method_title = __( 'Mono Hire Purchase Method', 'mono-pay-part' );
-		$this->method_description = __( 'Allows customers to pay using Mono Hire Purchase Method.', 'mono-pay-part' );
+		$this->method_title = __( 'Mono Hire Purchase Method', 'mono-hire-purchase' );
+		$this->method_description = __( 'Allows customers to pay using Mono Hire Purchase Method.', 'mono-hire-purchase' );
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -38,23 +38,23 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 	public function init_form_fields() {
 		$this->form_fields = [ 
 			'enabled' => [ 
-				'title' => __( 'Enable/Disable', 'mono-pay-part' ),
+				'title' => __( 'Enable/Disable', 'mono-hire-purchase' ),
 				'type' => 'checkbox',
-				'label' => __( 'Enable Mono Hire Purchase Method', 'mono-pay-part' ),
+				'label' => __( 'Enable Mono Hire Purchase Method', 'mono-hire-purchase' ),
 				'default' => 'yes',
 			],
 			'title' => [ 
-				'title' => __( 'Title', 'mono-pay-part' ),
+				'title' => __( 'Title', 'mono-hire-purchase' ),
 				'type' => 'text',
-				'description' => __( 'This controls the title which the user sees during checkout.', 'mono-pay-part' ),
-				'default' => __( 'Mono Hire Purchase Method', 'mono-pay-part' ),
+				'description' => __( 'This controls the title which the user sees during checkout.', 'mono-hire-purchase' ),
+				'default' => __( 'Mono Hire Purchase Method', 'mono-hire-purchase' ),
 				'desc_tip' => true,
 			],
 			'description' => [ 
-				'title' => __( 'Description', 'mono-pay-part' ),
+				'title' => __( 'Description', 'mono-hire-purchase' ),
 				'type' => 'textarea',
-				'description' => __( 'This controls the description which the user sees during checkout.', 'mono-pay-part' ),
-				'default' => __( 'Pay using Mono Hire Purchase Method.', 'mono-pay-part' ),
+				'description' => __( 'This controls the description which the user sees during checkout.', 'mono-hire-purchase' ),
+				'default' => __( 'Pay using Mono Hire Purchase Method.', 'mono-hire-purchase' ),
 			],
 		];
 	}
@@ -72,7 +72,7 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 		echo wp_kses_post( wpautop( esc_html( $this->description ) ) );
 
 		// Create the dropdown for available parts
-		echo '<label for="desired_parts">' . esc_html__( 'Desired payments number', 'mono-pay-part' ) . '</label>';
+		echo '<label for="desired_parts">' . esc_html__( 'Desired payments number', 'mono-hire-purchase' ) . '</label>';
 		echo '<select name="desired_parts" id="desired_parts">';
 		foreach ( $available_parts as $part ) {
 			echo sprintf(
@@ -81,7 +81,7 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 				esc_html( 
 					sprintf(
 						// translators: %s: Number of payments
-						_nx( '%s payment', '%s payments', $part, 'Number of payments', 'mono-pay-part' ),
+						_nx( '%s payment', '%s payments', $part, 'Number of payments', 'mono-hire-purchase' ),
 						number_format_i18n( $part )
 					)
 				)
@@ -108,7 +108,7 @@ class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 		}
 
 		// Mark as on-hold (we're awaiting the payment)
-		$order->update_status( 'pending', __( 'Awaiting Mono Hire Purchase payment acceptance', 'mono-pay-part' ) );
+		$order->update_status( 'pending', __( 'Awaiting Mono Hire Purchase payment acceptance', 'mono-hire-purchase' ) );
 
 		// Reduce stock levels
 		wc_reduce_stock_levels( $order_id );

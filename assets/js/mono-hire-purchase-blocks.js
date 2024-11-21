@@ -40,13 +40,13 @@ const Content = ({ eventRegistration, emitResponse }) => {
         <div>
             <p>{decodeEntities(settings.description || '')}</p>
             <label htmlFor="desired_parts">
-                {_nx('Desired payments number', 'mono-pay-part')}
+                {_nx('Desired payments number', 'mono-hire-purchase')}
             </label>
             <select name="desired_parts" id="desired_parts">
                 {availableParts.map((part) => (
                     <option key={part} value={part}>
                         {sprintf(
-                            _nx('%d payment', '%d payments', part, 'Number of payments', 'mono-pay-part'),
+                            _nx('%d payment', '%d payments', part, 'Number of payments', 'mono-hire-purchase'),
                             part
                         )}
                     </option>
