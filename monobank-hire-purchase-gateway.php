@@ -37,7 +37,7 @@ add_action( 'wp_enqueue_scripts', 'mono_hire_purchase_enqueue_frontend_styles' )
 
 // Enqueue admin styles and scripts
 function mono_hire_purchase_enqueue_admin_assets( $hook_suffix ) {
-	error_log('Current hook suffix: ' . $hook_suffix);
+
 	if ( $hook_suffix == 'woocommerce_page_monobank-hire-purchase-gateway' ) {
 		wp_enqueue_media();
 		wp_enqueue_style( 'monobank-hire-purchase-gateway-settings', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-settings-page.css', array(), MONO_HIRE_PURCHASE_VERSION );
