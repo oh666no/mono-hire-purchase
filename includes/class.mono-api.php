@@ -218,19 +218,32 @@ class Mono_Hire_Purchase_API {
 			return;
 		}
 
+		// Sanitize and validate the request data
+		$order_id_received = isset( $request_data['order_id'] ) ? sanitize_text_field( $request_data['order_id'] ) : '';
+		$state = isset( $request_data['state'] ) ? sanitize_text_field( $request_data['state'] ) : '';
+		$order_sub_state = isset( $request_data['order_sub_state'] ) ? sanitize_text_field( $request_data['order_sub_state'] ) : '';
+
+		// Validate that required fields are present
+		if ( empty( $order_id_received ) || empty( $state ) || empty( $order_sub_state ) ) {
+			$this->log_message( 'Missing required fields in the request data' );
+			header( 'HTTP/1.1 400 Bad Request' );
+			echo wp_json_encode( [ 'message' => 'Missing required fields' ] );
+			return;
+		}
+
 		// Query the database for the order
 		$meta_key = '_mono_hire_purchase_order_id';
-		$meta_value = $request_data['order_id'];
+		$meta_value = $order_id_received;
 
 		if ( class_exists( 'Automattic\WooCommerce\Utilities\OrderUtil' ) && OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// HPOS is enabled
-			$order_id = wc_get_orders( array(
-				'meta_key' => $meta_key,
+			$order_ids = wc_get_orders( array(
+				'meta_key'   => $meta_key,
 				'meta_value' => $meta_value,
-				'limit' => 1,
-				'return' => 'ids',
+				'limit'      => 1,
+				'return'     => 'ids',
 			) );
-			$order_id = ! empty( $order_id ) ? $order_id[0] : null;
+			$order_id = ! empty( $order_ids ) ? $order_ids[0] : null;
 		} else {
 			// Traditional post meta storage
 			$query = $wpdb->prepare(
@@ -246,14 +259,14 @@ class Mono_Hire_Purchase_API {
 			if ( $order ) {
 				// Update meta and handle status
 				$this->update_order_meta( $order, [ 
-					'_mono_order_state' => $request_data['state'],
-					'_mono_order_sub_state' => $request_data['order_sub_state']
+					'_mono_order_state' => $state,
+					'_mono_order_sub_state' => $order_sub_state
 				] );
 
-				if ( $request_data['state'] === 'SUCCESS' ) {
+				if ( $state === 'SUCCESS' ) {
 					$order->update_status( 'processing', esc_html__( 'Mono Part Pay payment Approved by Bank', 'monobank-hire-purchase-gateway' ) );
-				} elseif ( $request_data['state'] === 'FAIL' ) {
-					$order->update_status( 'failed', esc_html__( 'Mono Part Pay payment Failed. Reason: ', 'monobank-hire-purchase-gateway' ) . esc_html( $request_data['order_sub_state'] ) );
+				} elseif ( $state === 'FAIL' ) {
+					$order->update_status( 'failed', esc_html__( 'Mono Part Pay payment Failed. Reason: ', 'monobank-hire-purchase-gateway' ) . esc_html( $order_sub_state ) );
 				} else {
 					$order->update_status( 'on-hold', esc_html__( 'Unknown payment status via Mono Part Pay.', 'monobank-hire-purchase-gateway' ) );
 				}
