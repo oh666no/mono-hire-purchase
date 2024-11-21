@@ -1,11 +1,11 @@
 <?php
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
-final class WC_Gateway_Mono_Hire_Purchase_Blocks extends AbstractPaymentMethodType {
+final class MHPG_Checkout_Blocks extends AbstractPaymentMethodType {
 	private $gateway;
 	protected $name = 'mono_hire_purchase';// your payment gateway name
 	public function initialize() {
 		$this->settings = get_option( 'woocommerce_mono_hire_purchase_settings', [] );
-		$this->gateway = new WC_Gateway_Mono_Hire_Purchase();
+		$this->gateway = new MHPG_Gateway_Mono_Hire_Purchase();
 	}
 	public function is_active() {
 		return $this->gateway->is_available();

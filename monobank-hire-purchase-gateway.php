@@ -79,13 +79,13 @@ if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 	add_action( 'plugins_loaded', 'mono_hire_purchase_gateway_init', 11 );
 
 	// Register the payment gateway
-	function add_mono_hire_purchase_gateway( $methods ) {
+	function register_mono_hire_purchase_gateway( $methods ) {
 		if ( get_option( 'mono_hire_purchase_enable_payment_method' ) ) {
-			$methods[] = 'WC_Gateway_Mono_Hire_Purchase';
+			$methods[] = 'MHPG_Gateway_Mono_Hire_Purchase';
 		}
 		return $methods;
 	}
-	add_filter( 'woocommerce_payment_gateways', 'add_mono_hire_purchase_gateway' );
+	add_filter( 'woocommerce_payment_gateways', 'register_mono_hire_purchase_gateway' );
 
 } else {
 	// Display notice if WooCommerce is not active
@@ -109,7 +109,7 @@ function mono_pay_register_block_support() {
 	add_action(
 		'woocommerce_blocks_payment_method_type_registration',
 		function (Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry $payment_method_registry) {
-			$payment_method_registry->register( new WC_Gateway_Mono_Hire_Purchase_Blocks );
+			$payment_method_registry->register( new MHPG_Checkout_Blocks );
 		}
 	);
 }

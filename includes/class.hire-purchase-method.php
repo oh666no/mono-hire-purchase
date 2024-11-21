@@ -8,7 +8,7 @@ if ( ! class_exists( 'WC_Payment_Gateway' ) ) {
 	return;
 }
 use Automattic\WooCommerce\Utilities\OrderUtil;
-class WC_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
+class MHPG_Gateway_Mono_Hire_Purchase extends WC_Payment_Gateway {
 
 	public function __construct() {
 
