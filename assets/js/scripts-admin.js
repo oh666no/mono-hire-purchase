@@ -43,9 +43,9 @@ jQuery(document).ready(function ($) {
         var id = button.prevAll('input[type="hidden"]').attr('id'); // Adjusted to find the input hidden field
 
         var custom_uploader = wp.media({
-            title: '<?php esc_html_e( "Select Image", "mono-hire-purchase" ); ?>',
+            title: adminScriptLocalizedText.selectImage,
             button: {
-                text: '<?php esc_html_e( "Use this image", "mono-hire-purchase" ); ?>'
+                text: adminScriptLocalizedText.useImage
             },
             multiple: false
         }).on('select', function () {

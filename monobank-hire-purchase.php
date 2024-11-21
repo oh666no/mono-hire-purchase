@@ -45,6 +45,8 @@ function mono_hire_purchase_enqueue_admin_assets( $hook_suffix ) {
 	wp_enqueue_style( 'mono-hire-purchase-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/css/style-admin.css', array(), '1.0' );
 	wp_enqueue_script( 'mono-hire-purchase-admin', MONO_HIRE_PURCHASE_PLUGIN_URL . 'assets/js/scripts-admin.js', array( 'jquery' ), '1.0', true );
 	wp_localize_script( 'mono-hire-purchase-admin', 'adminScriptLocalizedText', array(
+		'selectImage' => __('Select Image', 'mono-hire-purchase'),
+		'useImage' => __('Use this image', 'mono-hire-purchase'),
 		'copySuccess' => __( 'Shortcode copied to clipboard!', 'mono-hire-purchase' )
 	) );
 }
