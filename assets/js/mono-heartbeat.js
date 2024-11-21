@@ -27,6 +27,9 @@ jQuery(document).ready(function ($) {
                 if ('SUCCESS' === data.mono_order_status.state && 'SUCCESS' !== $('.mono-order-shipment-status-value').text()) {
                     // Enable the button if the order state is success, but shipment is not yet confirmed
                     $('#confirm-shipment-button').prop('disabled', false);
+                } else if ('IN_PROCESS' === data.mono_order_status.state && 'WAITING_FOR_STORE_CONFIRM' === data.mono_order_status.sub_state) {
+                    // Enable the button if the order state is in process, and the sub state is waiting for store confirmation
+                    $('#confirm-shipment-button').prop('disabled', false);
                 } else {
                     // In all other cases, disable the button
                     $('#confirm-shipment-button').prop('disabled', true);

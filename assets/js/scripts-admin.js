@@ -1,6 +1,13 @@
 jQuery(document).ready(function ($) {
     console.log('Admin script loaded for Mono API interaction.');
 
+    if (('IN_PROCESS' == $('.mono-order-state-value').text()) && ('WAITING_FOR_STORE_CONFIRM' == $('.mono-order-sub-state-value').text()) && ('SUCCESS' != $('.mono-order-shipment-status-value').text())){
+        // Enable the button if the order state is in process, and the sub state is waiting for store confirmation
+        $('#confirm-shipment-button').prop('disabled', false);
+    } else if ('SUCCESS' == $('.mono-order-shipment-status-value').text()){
+        // Disable the button if the shipment state is success
+        $('#confirm-shipment-button').prop('disabled', true);
+    }
     // Helper function for making Ajax requests
     function sendMonoAjaxRequest(action, orderID, nonce, successCallback) {
         var data = {
@@ -54,6 +61,9 @@ jQuery(document).ready(function ($) {
             
             if ('SUCCESS' === response.data.state && 'SUCCESS' !== response.data.shipment_state) {
                 // Enable the button if the order state is success, but shipment is not yet confirmed
+                $('#confirm-shipment-button').prop('disabled', false);
+            } else if ('IN_PROCESS' === response.data.state && 'WAITING_FOR_STORE_CONFIRM' === response.data.sub_state) {
+                // Enable the button if the order state is in process, and the sub state is waiting for store confirmation
                 $('#confirm-shipment-button').prop('disabled', false);
             } else {
                 // In all other cases, disable the button
